@@ -1,0 +1,47 @@
+{
+  "name": "@boostercloud/rocket-webhook-core",
+  "version": "0.0.2",
+  "description": "Core part of the Booster rocket to integrate webhooks",
+  "keywords": [
+    "Booster",
+    "plugin",
+    "azure",
+    "webhooks"
+  ],
+  "author": "Booster Cloud",
+  "homepage": "https://booster.cloud",
+  "license": "Apache-2.0",
+  "publishConfig": {
+    "access": "restricted"
+  },
+  "main": "dist/index.js",
+  "files": [
+    "dist"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/boostercloud/booster.git"
+  },
+  "bundledDependencies": [
+    "uuid"
+  ],
+  "dependencies": {
+    "@boostercloud/framework-core": "^0.24.0",
+    "tslib": "2.1.0"
+  },
+  "devDependencies": {
+    "@boostercloud/rocket-webhook-types": "0.0.2",
+    "@boostercloud/framework-types": "^0.24.0",
+    "uuid": "^8.3.2"
+  },
+  "scripts": {
+    "lint:check": "eslint --ext '.js,.ts' **/*.ts",
+    "lint:fix": "eslint --quiet --fix --ext '.js,.ts' **/*.ts",
+    "compile": "tsc -b tsconfig.json",
+    "clean": "rimraf ./dist tsconfig.tsbuildinfo",
+    "test": "nyc --extension .ts mocha --forbid-only \"test/**/*.test.ts\""
+  },
+  "bugs": {
+    "url": "https://github.com/boostercloud/booster/issues"
+  }
+}

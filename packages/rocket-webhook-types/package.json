@@ -1,0 +1,42 @@
+{
+  "name": "@boostercloud/rocket-webhook-types",
+  "version": "0.0.2",
+  "description": "Common types that are part of the Booster rocket to integrate webhooks",
+  "keywords": [
+    "Booster",
+    "plugin",
+    "azure",
+    "webhooks"
+  ],
+  "author": "Booster Cloud",
+  "homepage": "https://booster.cloud",
+  "license": "Apache-2.0",
+  "publishConfig": {
+    "access": "public"
+  },
+  "main": "dist/index.js",
+  "files": [
+    "dist"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/boostercloud/booster.git"
+  },
+  "dependencies": {
+  },
+  "devDependencies": {
+    "@boostercloud/framework-core": "^0.24.0",
+    "@boostercloud/framework-types": "^0.24.0"
+  },
+  "scripts": {
+    "lint:check": "eslint --ext '.js,.ts' **/*.ts",
+    "lint:fix": "eslint --quiet --fix --ext '.js,.ts' **/*.ts",
+    "compile": "tsc -b tsconfig.json",
+    "clean": "rimraf ./dist tsconfig.tsbuildinfo",
+    "prepack": "npm run compile",
+    "test": "nyc --extension .ts mocha --forbid-only \"test/**/*.test.ts\""
+  },
+  "bugs": {
+    "url": "https://github.com/boostercloud/booster/issues"
+  }
+}
