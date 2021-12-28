@@ -1,6 +1,6 @@
 {
   "name": "@boostercloud/rocket-webhook-azure-infrastructure",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Azure Infrastructure part of the Booster rocket to integrate webhooks",
   "keywords": [
     "Booster",
@@ -23,9 +23,9 @@
     "url": "git+https://github.com/boostercloud/booster.git"
   },
   "dependencies": {
-    "@boostercloud/rocket-webhook-types": "0.1.0",
     "@boostercloud/framework-core": "^0.24.0",
     "@boostercloud/framework-types": "^0.24.0",
+    "@boostercloud/rocket-webhook-types": "^0.1.1",
     "@cdktf/provider-azurerm": "0.2.179",
     "cdktf": "0.7.0",
     "metadata-booster": "^0.3.1",
@@ -56,9 +56,9 @@
     "prettier": "^2.3.2",
     "sinon": "^11.1.2",
     "sinon-chai": "^3.7.0",
+    "ts-node": "^10.1.0",
     "ts-patch": "^1.4.2",
-    "typescript": "^4.3.5",
-    "ts-node": "^10.1.0"
+    "typescript": "^4.3.5"
   },
   "scripts": {
     "lint:check": "eslint --ext '.js,.ts' **/*.ts",
