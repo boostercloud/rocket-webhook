@@ -1,6 +1,6 @@
 {
   "name": "@boostercloud/rocket-webhook",
-  "version": "0.0.2",
+  "version": "0.1.0",
   "description": "Booster rocket to integrate webhooks",
   "keywords": [
     "Booster",
