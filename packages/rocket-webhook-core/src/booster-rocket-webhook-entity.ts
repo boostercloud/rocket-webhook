@@ -3,7 +3,7 @@ import { BoosterRocketWebhookEvent } from './booster-rocket-webhook-event'
 
 @Entity
 export class BoosterRocketWebhookEntity {
-  public constructor(readonly value: unknown) {}
+  public constructor(readonly rawEvent: unknown) {}
 
   @Reduces(BoosterRocketWebhookEvent)
   public static reduceRocketWebhookEvent(event: BoosterRocketWebhookEvent): BoosterRocketWebhookEntity {
