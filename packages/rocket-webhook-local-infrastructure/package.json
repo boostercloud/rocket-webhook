@@ -1,6 +1,6 @@
 {
   "name": "@boostercloud/rocket-webhook-local-infrastructure",
-  "version": "0.0.2",
+  "version": "0.1.0",
   "description": "Local Infrastructure part of the Booster rocket to integrate webhooks",
   "keywords": [
     "Booster",
@@ -23,7 +23,7 @@
     "url": "git+https://github.com/boostercloud/booster.git"
   },
   "dependencies": {
-    "@boostercloud/rocket-webhook-types": "0.0.2",
+    "@boostercloud/rocket-webhook-types": "0.1.0",
     "@boostercloud/framework-core": "^0.24.0",
     "@boostercloud/framework-types": "^0.24.0",
     "metadata-booster": "^0.3.1",
