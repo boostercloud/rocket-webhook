@@ -6,7 +6,7 @@ import { getFunctionAppName } from '../helper'
 
 export class Functions {
   static mountFunctions(params: WebhookParams, config: BoosterConfig): Array<FunctionDefinition> {
-    return [WebhookFunction.getFunctionDefinition(config)]
+    return params.map((param) => WebhookFunction.getFunctionDefinition(config, param.origin))
   }
 
   static getFunctionAppName(params: WebhookParams, applicationSynthStack: ApplicationSynthStack): string {

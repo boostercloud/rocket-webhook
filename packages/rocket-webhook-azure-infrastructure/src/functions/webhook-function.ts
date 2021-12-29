@@ -1,4 +1,3 @@
-import { eventPublisherName } from '../constants'
 import { Binding, FunctionDefinition } from '@boostercloud/framework-provider-azure-infrastructure'
 import { BoosterConfig } from '@boostercloud/framework-types'
 
@@ -10,9 +9,9 @@ export declare type WebhookHttpBinding = Binding & {
 export declare type WebhookHttpFunctionDefinition = FunctionDefinition<WebhookHttpBinding>
 
 export class WebhookFunction {
-  static getFunctionDefinition(config: BoosterConfig): WebhookHttpFunctionDefinition {
+  static getFunctionDefinition(config: BoosterConfig, endpoint: string): WebhookHttpFunctionDefinition {
     return {
-      name: eventPublisherName,
+      name: endpoint,
       config: {
         bindings: [
           {

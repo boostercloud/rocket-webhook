@@ -5,16 +5,17 @@ import { HttpCodes, requestFailed } from '../http'
 export class WebhookController {
   public router: express.Router = express.Router()
 
-  constructor() {
-    this.router.post('/', this.handleGraphQL.bind(this))
+  constructor(origin: string) {
+    this.router.post(`/${origin}`, this.handleWebhook.bind(this))
   }
 
-  public async handleGraphQL(req: express.Request, res: express.Response, next: express.NextFunction): Promise<void> {
+  public async handleWebhook(req: express.Request, res: express.Response, next: express.NextFunction): Promise<void> {
     try {
       const request = {
         req: {
           method: 'POST',
           url: req.url,
+          originalUrl: req.originalUrl,
           headers: req.headers,
           query: req.query,
           params: req.params,

@@ -10,9 +10,10 @@ export class TerraformApiManagementApiOperationPolicy {
     functionAppName: string,
     terraformStack: TerraformStack,
     apiManagementApiOperation: ApiManagementApiOperation,
-    resourceGroupName: string
+    resourceGroupName: string,
+    endpoint: string
   ): ApiManagementApiOperationPolicy {
-    const idApiManagementApiOperationPolicy = utils.toTerraformName(appPrefix, 'amaopr')
+    const idApiManagementApiOperationPolicy = utils.toTerraformName(appPrefix, `amaopr${endpoint}`)
     const policyContent = Mustache.render(templates.policy, { functionAppName: functionAppName })
     return new ApiManagementApiOperationPolicy(terraformStack, idApiManagementApiOperationPolicy, {
       apiName: apiManagementApiOperation.apiName,

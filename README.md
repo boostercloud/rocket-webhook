@@ -1,9 +1,7 @@
 # Booster rocket webhook Azure
 
 ## Description
-This Rocket adds a Webhook to your Booster application. When the webhook is called, a new BoosterRocketWebhookEvent will be created. This event will be generated including the request as the value. 
-
-The BoosterRocketWebhookEvent should not be reduced and should be handled with a event handler. Create your own event from this one if you need it 
+This Rocket adds a Webhook to your Booster application. When the webhook is called, a function will be executed in your Booster application with request as a parameter. 
 
 ## Supported Providers
 
@@ -16,23 +14,52 @@ This Rocket supports the following Providers:
 
 Add your rocket to your application in the configuration file.
 
-### For Azure
+### Generic
 ```typescript
-  config.rockets = [
-    new BoosterWebhook(config, {}).rocketForAzure(),
-  ]
+function buildBoosterWebhook(config: BoosterConfig): BoosterWebhook {
+    return new BoosterWebhook(config, [
+        {
+            origin: 'stripe',
+            handlerClass: StripeHandler,
+        },
+        {
+            origin: 'otro',
+            handlerClass: FacebookHandler,
+        },
+    ])
+}
 ```
 
-### For Local
+And call this method on your rocket configuration.
+
+For Azure
 ```typescript
-  config.rockets = [
-    new BoosterWebhook(config, {}).rocketForLocal(),
-  ]
+  config.rockets = [buildBoosterWebhook(config).rocketForAzure()]
+```
+
+For Local
+```typescript
+  config.rockets = [buildBoosterWebhook(config).rocketForLocal()]
 ```
 
 ### Parameters
 
-No parameters are needed for this Rocket.
+* origin: Identify the webhook. It will be also the name of the endpoint that will be created
+* handlerClass: A class with a `handle` method to handle the request
+
+The `handle` method should be like this one:
+
+```typescript
+export class StripeHandlerCommand {
+
+    constructor() {
+    }
+
+    public static async handle(webhookEventInterface: WebhookEvent, register: Register): Promise<string> {
+        return Promise.resolve('ok')
+    }
+}
+```
 
 ## Compile
 

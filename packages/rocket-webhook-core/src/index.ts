@@ -1,10 +1,13 @@
 import { BoosterConfig, RocketDescriptor } from '@boostercloud/framework-types'
-import { functionID, WebhookParams } from '@boostercloud/rocket-webhook-types'
+import { functionID, WebhookParams, WebhookRequest } from '@boostercloud/rocket-webhook-types'
 import { dispatch } from './webhook-dispatcher'
 
 export class BoosterWebhook {
   public constructor(readonly config: BoosterConfig, readonly params: WebhookParams) {
-    config.registerRocketFunction(functionID, dispatch)
+    config.registerRocketFunction(functionID, async (config: BoosterConfig, request: unknown) => {
+      const webhookRequest = request as WebhookRequest
+      return dispatch(config, webhookRequest, params)
+    })
   }
 
   public rocketForAzure(): RocketDescriptor {
