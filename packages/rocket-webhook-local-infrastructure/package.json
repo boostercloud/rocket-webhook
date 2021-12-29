@@ -1,6 +1,6 @@
 {
   "name": "@boostercloud/rocket-webhook-local-infrastructure",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "Local Infrastructure part of the Booster rocket to integrate webhooks",
   "keywords": [
     "Booster",
@@ -25,7 +25,7 @@
   "dependencies": {
     "@boostercloud/framework-core": "^0.24.1",
     "@boostercloud/framework-types": "^0.24.1",
-    "@boostercloud/rocket-webhook-types": "^0.1.4",
+    "@boostercloud/rocket-webhook-types": "^0.1.5",
     "express": "^4.17.1",
     "metadata-booster": "^0.3.1",
     "mustache": "4.1.0"
