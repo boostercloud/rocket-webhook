@@ -5,9 +5,9 @@ export interface WebhookEvent extends EventInterface {
   method: string
   url: string
   originalUrl: string
-  headers: unknown
+  headers: Record<string, unknown>
   query: unknown
   params: unknown
-  body: unknown
-  rawEvent: unknown
+  rawBody: string
+  body: Record<string, unknown>
 }

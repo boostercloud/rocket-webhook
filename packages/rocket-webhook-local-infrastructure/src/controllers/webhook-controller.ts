@@ -6,7 +6,7 @@ export class WebhookController {
   public router: express.Router = express.Router()
 
   constructor(origin: string) {
-    this.router.post(`/${origin}`, this.handleWebhook.bind(this))
+    this.router.post(`/${origin}`, express.raw({ type: 'application/json' }), this.handleWebhook.bind(this))
   }
 
   public async handleWebhook(req: express.Request, res: express.Response, next: express.NextFunction): Promise<void> {
@@ -19,8 +19,8 @@ export class WebhookController {
           headers: req.headers,
           query: req.query,
           params: req.params,
-          body: req.body,
-          rawBody: req.body ? JSON.stringify(req.body, null, 2) : '',
+          rawBody: req.body, // Body is of type Buffer
+          body: JSON.parse(req.body.toString()),
         },
       }
       const response = await boosterRocketDispatcher(request)
