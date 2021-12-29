@@ -1,4 +1,4 @@
-import { BoosterConfig, Class, Register } from '@boostercloud/framework-types'
+import { BoosterConfig, Register } from '@boostercloud/framework-types'
 import {
   WebhookEvent,
   WebhookParams,
@@ -18,10 +18,9 @@ export async function dispatch(
     const requestId = hashFrom(request)
     const webhookParamsEvent = getWebhookParamsEvent(params, request)
     const handlerClass = webhookParamsEvent.handlerClass
-    const webhookEventInterface = toWebhookEventInterface(webhookParamsEvent, request)
-    const instance = createInstance(handlerClass, webhookEventInterface) as WebhookEvent
+    const webhookEvent = toWebhookEvent(webhookParamsEvent, request)
     const register = new Register(requestId, undefined)
-    const result = await handlerClass.handle(instance, register)
+    const result = await handlerClass.handle(webhookEvent, register)
     await RegisterHandler.handle(config, console, register)
     return result
   } catch (e) {
@@ -29,17 +28,11 @@ export async function dispatch(
     return Promise.reject(err.message || 'Internal server error')
   }
 
-  function toWebhookEventInterface(webhookParamsEvent: WebhookParamsEvent, request: WebhookRequest): WebhookEvent {
+  function toWebhookEvent(webhookParamsEvent: WebhookParamsEvent, request: WebhookRequest): WebhookEvent {
     return {
       origin: webhookParamsEvent.origin,
       ...request.req,
     } as WebhookEvent
-  }
-
-  function createInstance<T>(instanceClass: Class<T>, rawObject: Record<string, any>): T {
-    const instance = new instanceClass()
-    Object.assign(instance, rawObject)
-    return instance
   }
 
   function getWebhookParamsEvent(params: WebhookParams, request: WebhookRequest): WebhookParamsEvent {
