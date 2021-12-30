@@ -2,6 +2,10 @@ import * as express from 'express'
 import { boosterRocketDispatcher } from '@boostercloud/framework-core'
 import { HttpCodes, requestFailed } from '../http'
 
+export type APIResult =
+    | { status: 'success'; result: unknown }
+    | { status: 'failure'; code: number; title: string; reason: string }
+
 export class WebhookController {
   public router: express.Router = express.Router()
 
@@ -23,10 +27,12 @@ export class WebhookController {
           body: req.body,
         },
       }
-      const response = await boosterRocketDispatcher(request)
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      res.status(HttpCodes.Ok).json(response.result)
+      const response = await boosterRocketDispatcher(request) as APIResult
+      if (response.status === 'success') {
+        res.status(HttpCodes.Ok).json(response.result)
+      } else {
+        res.status(response.code).json({title: response.title, reason: response.reason})
+      }
     } catch (e) {
       const err = e as Error
       await requestFailed(err, res)
