@@ -26,16 +26,16 @@
     "uuid"
   ],
   "peerDependencies": {
-    "@boostercloud/framework-core": ">= ^0.24.2" ,
+    "@boostercloud/framework-core": ">= ^0.24.2",
     "@boostercloud/framework-types": ">= ^0.24.2"
   },
   "dependencies": {
     "@boostercloud/rocket-webhook-types": "^0.1.7"
   },
   "devDependencies": {
+    "metadata-booster": "^0.3.1",
     "tslib": "2.1.0",
-    "typescript": "^4.3.5",
-    "metadata-booster": "^0.3.1"
+    "typescript": "^4.3.5"
   },
   "scripts": {
     "lint:check": "eslint --ext '.js,.ts' **/*.ts",
