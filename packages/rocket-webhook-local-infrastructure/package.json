@@ -1,6 +1,6 @@
 {
   "name": "@boostercloud/rocket-webhook-local-infrastructure",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "description": "Local Infrastructure part of the Booster rocket to integrate webhooks",
   "keywords": [
     "Booster",
@@ -22,41 +22,31 @@
     "type": "git",
     "url": "git+https://github.com/boostercloud/rocket-webhook.git"
   },
+  "peerDependencies": {
+    "@boostercloud/framework-core": ">= ^0.24.2" ,
+    "@boostercloud/framework-types": ">= ^0.24.2"
+  },
   "dependencies": {
-    "@boostercloud/framework-core": "^0.24.1",
-    "@boostercloud/framework-types": "^0.24.1",
-    "@boostercloud/rocket-webhook-types": "^0.1.6",
-    "express": "^4.17.1",
-    "metadata-booster": "^0.3.1",
-    "mustache": "4.1.0"
+    "@boostercloud/rocket-webhook-types": "^0.1.7"
   },
   "devDependencies": {
-    "@boostercloud/framework-provider-local-infrastructure": "^0.24.1",
-    "@types/chai": "^4.2.21",
-    "@types/chai-as-promised": "^7.1.4",
-    "@types/faker": "5.5.7",
-    "@types/mocha": "^9.0.0",
+    "mustache": "4.1.0",
+    "@boostercloud/framework-provider-local-infrastructure": "^0.24.2",
     "@types/mustache": "^4.1.0",
     "@types/node": "16.4.11",
     "@types/sinon": "^10.0.2",
     "@types/sinon-chai": "^3.2.5",
     "@typescript-eslint/eslint-plugin": "^4.29.0",
     "@typescript-eslint/parser": "^4.29.0",
-    "aws-sdk": "^2.960.0",
-    "chai": "^4.3.4",
-    "chai-as-promised": "^7.1.1",
     "eslint": "^7.32.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-import": "^2.23.4",
     "eslint-plugin-prettier": "^3.4.0",
-    "faker": "5.5.3",
-    "mocha": "^9.0.3",
     "nyc": "^15.1.0",
     "prettier": "^2.3.2",
-    "sinon": "^11.1.2",
-    "sinon-chai": "^3.7.0",
     "ts-node": "^10.1.0",
     "ts-patch": "^1.4.2",
+    "metadata-booster": "^0.3.1",
     "typescript": "^4.3.5"
   },
   "scripts": {
