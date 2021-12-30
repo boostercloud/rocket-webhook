@@ -19,8 +19,8 @@ export class WebhookController {
           headers: req.headers,
           query: req.query,
           params: req.params,
-          rawBody: req.body, // Body is of type Buffer
-          body: JSON.parse(req.body.toString()),
+          rawBody: req.rawBody,
+          body: req.body,
         },
       }
       const response = await boosterRocketDispatcher(request)

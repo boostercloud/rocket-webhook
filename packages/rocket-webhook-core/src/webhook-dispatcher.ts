@@ -5,6 +5,7 @@ import {
   WebhookParamsEvent,
   WebhookRequest,
   Helper,
+  WebhookError,
 } from '@boostercloud/rocket-webhook-types'
 import { RegisterHandler } from '@boostercloud/framework-core'
 
@@ -24,8 +25,10 @@ export async function dispatch(
     await RegisterHandler.handle(config, console, register)
     return result
   } catch (e) {
-    const err = e as Error
-    return Promise.reject(err.message || 'Internal server error')
+    if (e instanceof WebhookError) {
+      return Promise.reject(e)
+    }
+    return Promise.reject(new WebhookError('Unexpected error'))
   }
 
   function toWebhookEvent(webhookParamsEvent: WebhookParamsEvent, request: WebhookRequest): WebhookEvent {
