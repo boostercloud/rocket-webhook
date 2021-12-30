@@ -4,6 +4,7 @@ import { BoosterConfig } from '@boostercloud/framework-types'
 export declare type WebhookHttpBinding = Binding & {
   authLevel?: string
   methods?: Array<string>
+  route?: string
 }
 
 export declare type WebhookHttpFunctionDefinition = FunctionDefinition<WebhookHttpBinding>
@@ -20,11 +21,12 @@ export class WebhookFunction {
             name: 'rawRequest',
             authLevel: 'anonymous',
             methods: ['post'],
+            route: `/webhook/${endpoint}?`,
           },
           {
             type: 'http',
             direction: 'out',
-            name: 'res',
+            name: '$return',
           },
         ],
         scriptFile: config.functionRelativePath,

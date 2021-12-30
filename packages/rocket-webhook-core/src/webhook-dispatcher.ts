@@ -1,11 +1,10 @@
-import { BoosterConfig, Register } from '@boostercloud/framework-types'
+import { BoosterConfig, Register, UUID } from '@boostercloud/framework-types'
 import {
   WebhookEvent,
   WebhookParams,
   WebhookParamsEvent,
   WebhookRequest,
   Helper,
-  WebhookError,
 } from '@boostercloud/rocket-webhook-types'
 import { RegisterHandler } from '@boostercloud/framework-core'
 
@@ -16,19 +15,16 @@ export async function dispatch(
 ): Promise<unknown> {
   try {
     console.log('Webhook: request received')
-    const requestId = hashFrom(request)
+    const requestId = UUID.generate()
     const webhookParamsEvent = getWebhookParamsEvent(params, request)
     const handlerClass = webhookParamsEvent.handlerClass
     const webhookEvent = toWebhookEvent(webhookParamsEvent, request)
     const register = new Register(requestId, undefined)
     const result = await handlerClass.handle(webhookEvent, register)
     await RegisterHandler.handle(config, console, register)
-    return result
+    return config.provider.api.requestSucceeded(result)
   } catch (e) {
-    if (e instanceof WebhookError) {
-      return Promise.reject(e)
-    }
-    return Promise.reject(new WebhookError('Unexpected error'))
+    return config.provider.api.requestFailed(e)
   }
 
   function toWebhookEvent(webhookParamsEvent: WebhookParamsEvent, request: WebhookRequest): WebhookEvent {
@@ -45,11 +41,5 @@ export async function dispatch(
       return param
     }
     throw new Error(`Could not find origin ${origin} in parameters.`)
-  }
-
-  function hashFrom(request: WebhookRequest): string {
-    const crypto = require('crypto')
-    const rawRequest = JSON.stringify(request)
-    return crypto.createHash('md5').update(rawRequest).digest('hex')
   }
 }

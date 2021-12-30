@@ -56,11 +56,10 @@ export class StripeHandlerCommand {
     }
 
     public static async handle(webhookEventInterface: WebhookEvent, register: Register): Promise<string> {
-        try {
-            Promise.resolve('ok')
-        } catch(e) {
-            return Promise.reject(new WebhookError('Error message'))
+        if (validationFails()) {
+            throw new InvalidParameterError('Error message')
         }
+        return 'ok'
     }
 }
 ```
