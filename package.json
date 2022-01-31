@@ -1,6 +1,6 @@
 {
 	"name": "@boostercloud/rocket-webhook",
-	"version": "0.1.7",
+	"version": "0.1.8",
 	"description": "Booster rocket to integrate webhooks",
 	"keywords": [
 		"Booster",
@@ -55,8 +55,8 @@
 		"url": "https://github.com/boostercloud/booster/issues"
 	},
 	"peerDependencies": {
-		"@boostercloud/framework-core": ">= ^0.24.2" ,
-		"@boostercloud/framework-types": ">= ^0.24.2"
+		"@boostercloud/framework-core": ">=0.24.2" ,
+		"@boostercloud/framework-types": ">=0.24.2"
 	},
 	"dependencies": {
 	}

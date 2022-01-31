@@ -23,7 +23,7 @@ function buildBoosterWebhook(config: BoosterConfig): BoosterWebhook {
             handlerClass: StripeHandler,
         },
         {
-            origin: 'otro',
+            origin: 'other',
             handlerClass: FacebookHandler,
         },
     ])
@@ -61,6 +61,35 @@ export class StripeHandlerCommand {
         }
         return 'ok'
     }
+}
+```
+
+Usage:
+
+```shell
+curl --request POST 'http://localhost:3000/webhook/stripe?param1=testvalue'
+```
+
+The webhookEventInterface object will be similar to this one: 
+
+```json
+{
+  origin: 'stripe',
+  method: 'POST',
+  url: '/stripe?param1=testvalue',
+  originalUrl: '/webhook/stripe?param1=testvalue',
+  headers: {
+    accept: '*/*',
+    'cache-control': 'no-cache',
+    host: 'localhost:3000',
+    'accept-encoding': 'gzip, deflate, br',
+    connection: 'keep-alive',
+    'content-length': '0'
+  },
+  query: { param1: 'testvalue' },
+  params: {},
+  rawBody: undefined,
+  body: {}
 }
 ```
 

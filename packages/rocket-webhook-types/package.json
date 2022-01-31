@@ -1,6 +1,6 @@
 {
   "name": "@boostercloud/rocket-webhook-types",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "description": "Common types that are part of the Booster rocket to integrate webhooks",
   "keywords": [
     "Booster",
@@ -23,8 +23,8 @@
     "url": "git+https://github.com/boostercloud/rocket-webhook.git"
   },
   "peerDependencies": {
-    "@boostercloud/framework-core": ">= ^0.24.2",
-    "@boostercloud/framework-types": ">= ^0.24.2"
+    "@boostercloud/framework-core": ">=0.24.2",
+    "@boostercloud/framework-types": ">=0.24.2"
   },
   "devDependencies": {
     "metadata-booster": "^0.3.1",
@@ -39,7 +39,7 @@
     "test": "nyc --extension .ts mocha --forbid-only \"test/**/*.test.ts\""
   },
   "bugs": {
-    "url": "https://github.com/boostercloud/booster/issues"
+    "url": "https://github.com/boostercloud/rocket-webhook/issues"
   },
   "gitHead": "1641d1ebb7bc97c28334a9ebd08bb5767fe0ccc8"
 }

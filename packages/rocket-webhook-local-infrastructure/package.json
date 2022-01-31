@@ -1,6 +1,6 @@
 {
   "name": "@boostercloud/rocket-webhook-local-infrastructure",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "description": "Local Infrastructure part of the Booster rocket to integrate webhooks",
   "keywords": [
     "Booster",
@@ -23,8 +23,8 @@
     "url": "git+https://github.com/boostercloud/rocket-webhook.git"
   },
   "peerDependencies": {
-    "@boostercloud/framework-core": ">= ^0.24.2",
-    "@boostercloud/framework-types": ">= ^0.24.2"
+    "@boostercloud/framework-core": ">=0.24.2",
+    "@boostercloud/framework-types": ">=0.24.2"
   },
   "dependencies": {
     "@boostercloud/rocket-webhook-types": "^0.1.7"
@@ -33,8 +33,6 @@
     "@boostercloud/framework-provider-local-infrastructure": "^0.24.2",
     "@types/mustache": "^4.1.0",
     "@types/node": "16.4.11",
-    "@types/sinon": "^10.0.2",
-    "@types/sinon-chai": "^3.2.5",
     "@typescript-eslint/eslint-plugin": "^4.29.0",
     "@typescript-eslint/parser": "^4.29.0",
     "eslint": "^7.32.0",
@@ -57,7 +55,7 @@
     "test": "nyc --extension .ts mocha --forbid-only \"test/**/*.test.ts\""
   },
   "bugs": {
-    "url": "https://github.com/boostercloud/booster/issues"
+    "url": "https://github.com/boostercloud/rocket-webhook/issues"
   },
   "gitHead": "1641d1ebb7bc97c28334a9ebd08bb5767fe0ccc8"
 }
