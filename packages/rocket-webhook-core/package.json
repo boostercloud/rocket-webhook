@@ -30,7 +30,7 @@
     "@boostercloud/framework-types": ">=0.24.2"
   },
   "dependencies": {
-    "@boostercloud/rocket-webhook-types": "^0.1.7"
+    "@boostercloud/rocket-webhook-types": "^0.1.8"
   },
   "devDependencies": {
     "metadata-booster": "^0.3.1",
