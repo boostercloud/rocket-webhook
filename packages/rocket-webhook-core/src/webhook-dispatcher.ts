@@ -19,9 +19,9 @@ export async function dispatch(
     const webhookParamsEvent = getWebhookParamsEvent(params, request)
     const handlerClass = webhookParamsEvent.handlerClass
     const webhookEvent = toWebhookEvent(webhookParamsEvent, request)
-    const register = new Register(requestId, undefined)
+    const register = new Register(requestId, {})
     const result = await handlerClass.handle(webhookEvent, register)
-    await RegisterHandler.handle(config, console, register)
+    await RegisterHandler.handle(config, register)
     return config.provider.api.requestSucceeded(result)
   } catch (e) {
     return config.provider.api.requestFailed(e)
