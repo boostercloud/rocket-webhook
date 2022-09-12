@@ -1,0 +1,56 @@
+{
+  "name": "@boostercloud/rocket-webhook-integration-tests",
+  "publishConfig": {
+    "access": "restricted"
+  },
+  "description": "",
+  "version": "0.1.0",
+  "author": "",
+  "dependencies": {
+    "@boostercloud/framework-core": "^0.24.2",
+    "@boostercloud/framework-provider-azure": "^0.24.2",
+    "@boostercloud/framework-types": "^0.24.2",
+    "@boostercloud/rocket-webhook-core": "workspace:^0.1.0",
+    "@boostercloud/rocket-webhook-types": "workspace:^0.1.0",
+    "tslib": "~2.4.0"
+  },
+  "devDependencies": {
+    "@boostercloud/cli": "^0.24.2",
+    "@boostercloud/framework-provider-azure-infrastructure": "^0.24.2",
+    "@boostercloud/framework-provider-local": "^0.24.2",
+    "@boostercloud/framework-provider-local-infrastructure": "^0.24.2",
+    "@boostercloud/rocket-webhook-azure-infrastructure": "workspace:^0.1.0",
+    "@types/mocha": "8.2.2",
+    "@types/node": "18.0.6",
+    "@typescript-eslint/eslint-plugin": "4.22.1",
+    "@typescript-eslint/parser": "4.22.1",
+    "eslint": "7.26.0",
+    "eslint-config-prettier": "8.3.0",
+    "eslint-plugin-prettier": "3.4.0",
+    "metadata-booster": "^0.3.1",
+    "mocha": "8.4.0",
+    "nyc": "15.1.0",
+    "prettier": "2.3.0",
+    "rimraf": "^3.0.1",
+    "ts-node": "9.1.1",
+    "ttypescript": "1.5.13",
+    "typescript": "4.5.4"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "homepage": "",
+  "license": "MIT",
+  "main": "dist/index.js",
+  "repository": "",
+  "scripts": {
+    "lint:check": "eslint --ext '.js,.ts' **/*.ts",
+    "lint:fix": "eslint --quiet --fix --ext '.js,.ts' **/*.ts",
+    "compile": "ttsc -b tsconfig.json",
+    "build": "ttsc -b tsconfig.json",
+    "synth": "boost synth -e production",
+    "clean": "rimraf ./dist tsconfig.tsbuildinfo",
+    "test": "AWS_SDK_LOAD_CONFIG=true BOOSTER_ENV=test nyc --extension .ts mocha --forbid-only \"test/**/*.test.ts\""
+  },
+  "types": "lib/index.d.ts"
+}

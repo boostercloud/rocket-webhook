@@ -414,7 +414,7 @@
     {
       "packageName": "@boostercloud/rocket-webhook-integration-tests",
       "projectFolder": "packages/rocket-webhook-integration-tests",
-      "shouldPublish": false
+      "shouldPublish": true
     }
   ]
 }

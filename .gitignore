@@ -68,3 +68,6 @@ common/autoinstallers/*/.npmrc
 .heft
 
 dist/
+packed
+.deploy
+.booster
