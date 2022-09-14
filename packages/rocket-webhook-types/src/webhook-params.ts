@@ -1,4 +1,4 @@
-import { WebhookHandlerClassInterface } from './webhook-handler-class-interface'
+import { WebhookHandlerClassInterface } from './webhook-handler'
 
 export const functionID = 'rocket-webhook'
 

@@ -1,5 +1,5 @@
 export * from './webhook-params'
-export * from './webhook-handler-class-interface'
+export * from './webhook-handler'
 export * from './webhook-event'
 export * from './webhook-request'
 export * from './helper'

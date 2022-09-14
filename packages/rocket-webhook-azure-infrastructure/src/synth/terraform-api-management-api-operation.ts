@@ -11,7 +11,7 @@ export class TerraformApiManagementApiOperation {
     resourceGroupName: string,
     endpoint: string
   ): ApiManagementApiOperation {
-    const apiManagementApi = applicationSynthStack.apiManagementApi as ApiManagementApi
+    const apiManagementApi: ApiManagementApi = applicationSynthStack.apiManagementApi!
     const idApiManagementApiOperation = utils.toTerraformName(appPrefix, `amaor${endpoint}`)
 
     return new ApiManagementApiOperation(terraformStack, idApiManagementApiOperation, {
