@@ -26,7 +26,7 @@ export async function dispatch(
     if (result) {
       return config.provider.api.requestSucceeded(result.body, result.headers)
     }
-    return config.provider.api.requestSucceeded(result)
+    return config.provider.api.requestSucceeded()
   } catch (e) {
     return config.provider.api.requestFailed(e)
   }
