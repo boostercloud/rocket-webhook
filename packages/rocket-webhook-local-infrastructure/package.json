@@ -1,6 +1,6 @@
 {
   "name": "@boostercloud/rocket-webhook-local-infrastructure",
-  "version": "0.1.8",
+  "version": "0.2.0",
   "description": "Local Infrastructure part of the Booster rocket to integrate webhooks",
   "keywords": [
     "Booster",
@@ -23,23 +23,23 @@
     "url": "git+https://github.com/boostercloud/rocket-webhook.git"
   },
   "peerDependencies": {
-    "@boostercloud/framework-core": ">=0.30.6",
-    "@boostercloud/framework-types": ">=0.30.6"
+    "@boostercloud/framework-core": ">=1.0.1",
+    "@boostercloud/framework-types": ">=1.0.1"
   },
   "dependencies": {
-    "@boostercloud/rocket-webhook-types": "^0.1.8"
+    "@boostercloud/rocket-webhook-types": "^0.2.0"
   },
   "devDependencies": {
-    "@boostercloud/framework-provider-local-infrastructure": "^0.30.6",
+    "@boostercloud/framework-provider-local-infrastructure": "1.0.1",
+    "@boostercloud/metadata-booster": "1.0.1",
     "@types/mustache": "^4.1.0",
-    "@types/node": "18.0.6",
+    "@types/node": "16.11.7",
     "@typescript-eslint/eslint-plugin": "^4.29.0",
     "@typescript-eslint/parser": "^4.29.0",
     "eslint": "^7.32.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-import": "^2.23.4",
     "eslint-plugin-prettier": "^3.4.0",
-    "@boostercloud/metadata-booster": "^0.30.6",
     "mustache": "4.1.0",
     "nyc": "^15.1.0",
     "prettier": "^2.3.2",
