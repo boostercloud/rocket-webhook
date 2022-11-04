@@ -1,6 +1,6 @@
 {
   "name": "@boostercloud/rocket-webhook-azure-infrastructure",
-  "version": "0.2.0",
+  "version": "0.1.9",
   "description": "Azure Infrastructure part of the Booster rocket to integrate webhooks",
   "keywords": [
     "Booster",
@@ -27,7 +27,7 @@
     "@boostercloud/framework-types": ">=1.0.1"
   },
   "dependencies": {
-    "@boostercloud/rocket-webhook-types": "0.2.0"
+    "@boostercloud/rocket-webhook-types": "0.1.9"
   },
   "devDependencies": {
     "@boostercloud/framework-provider-azure-infrastructure": "1.0.1",
