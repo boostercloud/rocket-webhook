@@ -3,7 +3,7 @@ import { boosterRocketDispatcher } from '@boostercloud/framework-core'
 import { HttpCodes, requestFailed } from '../http'
 
 export type APIResult =
-  | { status: 'success'; result: unknown }
+  | { status: 'success'; result: unknown; headers: Record<string, number | string | ReadonlyArray<string>> }
   | { status: 'failure'; code: number; title: string; reason: string }
 
 export class WebhookController {
@@ -29,6 +29,9 @@ export class WebhookController {
       }
       const response = (await boosterRocketDispatcher(request)) as APIResult
       if (response.status === 'success') {
+        for (const headersKey in response.headers) {
+          res.setHeader(headersKey, response.headers[headersKey])
+        }
         res.status(HttpCodes.Ok).json(response.result)
       } else {
         res.status(response.code).json({ title: response.title, reason: response.reason })

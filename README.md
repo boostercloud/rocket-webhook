@@ -19,8 +19,8 @@ Add your rocket to your application in the configuration file.
 function buildBoosterWebhook(config: BoosterConfig): BoosterWebhook {
     return new BoosterWebhook(config, [
         {
-            origin: 'stripe',
-            handlerClass: StripeHandler,
+            origin: 'test',
+            handlerClass: TestHandler,
         },
         {
             origin: 'other',
@@ -50,34 +50,54 @@ For Local
 The `handle` method should be like this one:
 
 ```typescript
-export class StripeHandlerCommand {
+export class TestHandler {
 
-    constructor() {
-    }
+  constructor() {
+  }
 
-    public static async handle(webhookEventInterface: WebhookEvent, register: Register): Promise<string> {
-        if (validationFails()) {
-            throw new InvalidParameterError('Error message')
-        }
-        return 'ok'
+  public static async handle(webhookEventInterface: WebhookEvent, register: Register): Promise<WebhookHandlerReturnType> {
+    if (validationFails()) {
+      throw new InvalidParameterError("Error message");
     }
+    return Promise.resolve({
+      body: { name: "my_name" }
+    });
+  }
 }
 ```
 
-Usage:
+## Return type
+
+Handle methods return a promise of WebhookHandlerReturnType or void. This object contains the headers and body to be returned as response. Example:
+
+```typescript
+  public static async handle(
+    webhookEventInterface: WebhookEvent,
+    register: Register
+  ): Promise<WebhookHandlerReturnType> {
+    return Promise.resolve({
+      body: 'ok',
+      headers: {
+        Test: 'test header',
+      },
+    })
+  }
+```
+
+## Usage
 
 ```shell
-curl --request POST 'http://localhost:3000/webhook/stripe?param1=testvalue'
+curl --request POST 'http://localhost:3000/webhook/command?param1=testvalue'
 ```
 
 The webhookEventInterface object will be similar to this one: 
 
 ```json
 {
-  origin: 'stripe',
+  origin: 'test',
   method: 'POST',
-  url: '/stripe?param1=testvalue',
-  originalUrl: '/webhook/stripe?param1=testvalue',
+  url: '/test?param1=testvalue',
+  originalUrl: '/webhook/test?param1=testvalue',
   headers: {
     accept: '*/*',
     'cache-control': 'no-cache',
