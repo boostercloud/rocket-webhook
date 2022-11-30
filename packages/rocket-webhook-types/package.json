@@ -23,11 +23,11 @@
     "url": "git+https://github.com/boostercloud/rocket-webhook.git"
   },
   "peerDependencies": {
-    "@boostercloud/framework-core": ">=1.0.1",
-    "@boostercloud/framework-types": ">=1.0.1"
+    "@boostercloud/framework-core": ">=1.3.2",
+    "@boostercloud/framework-types": ">=1.3.2"
   },
   "devDependencies": {
-    "@boostercloud/metadata-booster": "1.0.1",
+    "@boostercloud/metadata-booster": "1.3.2",
     "typescript": "4.7.4"
   },
   "scripts": {
