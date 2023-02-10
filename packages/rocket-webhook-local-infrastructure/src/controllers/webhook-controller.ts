@@ -1,6 +1,8 @@
 import * as express from 'express'
 import { boosterRocketDispatcher } from '@boostercloud/framework-core'
 import { HttpCodes, requestFailed } from '../http'
+import { rocketFunctionIDEnvVar } from '@boostercloud/framework-types'
+import { functionID } from '@boostercloud/rocket-webhook-types'
 
 export type APIResult =
   | { status: 'success'; result: unknown; headers: Record<string, number | string | ReadonlyArray<string>> }
@@ -16,6 +18,7 @@ export class WebhookController {
   public async handleWebhook(req: express.Request, res: express.Response, next: express.NextFunction): Promise<void> {
     try {
       const request = {
+        [rocketFunctionIDEnvVar]: functionID,
         req: {
           method: 'POST',
           url: req.url,
