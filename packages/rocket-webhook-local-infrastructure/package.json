@@ -1,6 +1,6 @@
 {
   "name": "@boostercloud/rocket-webhook-local-infrastructure",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Local Infrastructure part of the Booster rocket to integrate webhooks",
   "keywords": [
     "Booster",
