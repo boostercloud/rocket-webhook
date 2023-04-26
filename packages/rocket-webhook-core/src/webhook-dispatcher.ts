@@ -20,7 +20,7 @@ export async function dispatch(
     const webhookParamsEvent = getWebhookParamsEvent(params, request)
     const handlerClass = webhookParamsEvent.handlerClass
     const webhookEvent = toWebhookEvent(webhookParamsEvent, request)
-    const register = new Register(requestId, {})
+    const register = new Register(requestId, {}, RegisterHandler.flush)
     const result: WebhookHandlerReturnType | void = await handlerClass.handle(webhookEvent, register)
     await RegisterHandler.handle(config, register)
     if (result) {

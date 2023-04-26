@@ -26,14 +26,14 @@
     "uuid"
   ],
   "peerDependencies": {
-    "@boostercloud/framework-core": ">=1.3.2",
-    "@boostercloud/framework-types": ">=1.3.2"
+    "@boostercloud/framework-core": ">=1.10.0",
+    "@boostercloud/framework-types": ">=1.10.0"
   },
   "dependencies": {
-    "@boostercloud/rocket-webhook-types": "^0.2.0"
+    "@boostercloud/rocket-webhook-types": "^0.3.0"
   },
   "devDependencies": {
-    "@boostercloud/metadata-booster": "1.3.2",
+    "@boostercloud/metadata-booster": "1.10.0",
     "tslib": "2.1.0",
     "typescript": "4.7.4"
   },
