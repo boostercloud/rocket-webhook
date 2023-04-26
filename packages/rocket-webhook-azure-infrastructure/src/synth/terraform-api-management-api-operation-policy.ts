@@ -1,26 +1,33 @@
 import { RocketUtils, templates } from '@boostercloud/framework-provider-azure-infrastructure'
-import { ApiManagementApiOperation, ApiManagementApiOperationPolicy } from '@cdktf/provider-azurerm'
 import { TerraformStack } from 'cdktf'
 import * as Mustache from 'mustache'
+import { AzurermProvider } from '@cdktf/provider-azurerm/lib/provider'
+import { apiManagementApiOperation, apiManagementApiOperationPolicy } from '@cdktf/provider-azurerm'
 
 export class TerraformApiManagementApiOperationPolicy {
   static build(
+    providerResource: AzurermProvider,
     utils: RocketUtils,
     appPrefix: string,
     functionAppName: string,
     terraformStack: TerraformStack,
-    apiManagementApiOperation: ApiManagementApiOperation,
+    apiManagementApiOperationResource: apiManagementApiOperation.ApiManagementApiOperation,
     resourceGroupName: string,
     endpoint: string
-  ): ApiManagementApiOperationPolicy {
+  ): apiManagementApiOperationPolicy.ApiManagementApiOperationPolicy {
     const idApiManagementApiOperationPolicy = utils.toTerraformName(appPrefix, `amaopr${endpoint}`)
     const policyContent = Mustache.render(templates.policy, { functionAppName: functionAppName })
-    return new ApiManagementApiOperationPolicy(terraformStack, idApiManagementApiOperationPolicy, {
-      apiName: apiManagementApiOperation.apiName,
-      apiManagementName: apiManagementApiOperation.apiManagementName,
-      resourceGroupName: resourceGroupName,
-      operationId: apiManagementApiOperation.operationId,
-      xmlContent: policyContent,
-    })
+    return new apiManagementApiOperationPolicy.ApiManagementApiOperationPolicy(
+      terraformStack,
+      idApiManagementApiOperationPolicy,
+      {
+        apiName: apiManagementApiOperationResource.apiName,
+        apiManagementName: apiManagementApiOperationResource.apiManagementName,
+        resourceGroupName: resourceGroupName,
+        operationId: apiManagementApiOperationResource.operationId,
+        xmlContent: policyContent,
+        provider: providerResource,
+      }
+    )
   }
 }
