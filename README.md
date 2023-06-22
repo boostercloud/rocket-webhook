@@ -1,7 +1,7 @@
 # Booster rocket webhook Azure
 
 ## Description
-This Rocket adds a Webhook to your Booster application. When the webhook is called, a function will be executed in your Booster application with request as a parameter. 
+This Rocket adds HTTP endpoints to your Booster application. When an endpoint is called, a function will be executed in your Booster application with request as a parameter. 
 
 ## Supported Providers
 
@@ -19,11 +19,11 @@ Add your rocket to your application in the configuration file.
 function buildBoosterWebhook(config: BoosterConfig): BoosterWebhook {
     return new BoosterWebhook(config, [
         {
-            origin: 'test',
+            route: 'test',
             handlerClass: TestHandler,
         },
         {
-            origin: 'other',
+            route: 'clients/other',
             handlerClass: FacebookHandler,
         },
     ])
@@ -44,8 +44,15 @@ For Local
 
 ### Parameters
 
-* origin: Identify the webhook. It will be also the name of the endpoint that will be created
+* route: The endpoint that will be created. It is possible to define nested routes.
 * handlerClass: A class with a `handle` method to handle the request
+* multiPartConfig: multipart/form-data configuration
+  * defParamCharset: the default character set to use for values of part header parameters (e.g. filename)
+  * preservePath: If paths in filenames from file parts in a 'multipart/form-data' request shall be preserved. 
+  * limits:
+    * fileSize: the max file size (in bytes)
+    * files: the max number of file fields.
+    * parts: the max number of parts (fields + files).
 
 The `handle` method should be like this one:
 
@@ -110,6 +117,55 @@ The webhookEventInterface object will be similar to this one:
   params: {},
   rawBody: undefined,
   body: {}
+}
+```
+
+
+## Multipart/form-data requests
+
+Endpoints accepts multipart/form-data requests. The `WebhookEvent` will contains a new `multiPart` object with the files and fields in the request. Example:
+
+```json
+{
+  origin: 'test',
+  method: 'POST',
+  url: '/test?param1=testvalue',
+  originalUrl: '/webhook/test?param1=testvalue',
+  headers: {
+    accept: '*/*',
+    'cache-control': 'no-cache',
+    host: 'localhost:3000',
+    'accept-encoding': 'gzip, deflate, br',
+    connection: 'keep-alive',
+    'content-length': '0'
+  },
+  query: {
+    param1: 'testvalue'
+  },
+  params: {},
+  rawBody: undefined,
+  body: {},
+  multipart: {
+    "files": [
+      {
+        name: "file1",
+        bufferFile: Buffer(11),
+        filename: "file1.txt",
+        encoding: "7bit",
+        mimeType: "text/plain"
+      }
+    ],
+    "fields": [
+      {
+        name: "parameterName",
+        value: "value",
+        nameTruncated: false,
+        valueTruncated: false,
+        encoding: "7bit",
+        ...
+      }
+    ]
+  }
 }
 ```
 

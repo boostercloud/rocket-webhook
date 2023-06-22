@@ -16,17 +16,18 @@ export class TerraformApiManagementApiOperation {
     const apiManagementApi: apiManagementApi.ApiManagementApi = applicationSynthStack.apiManagementApi!
     const idApiManagementApiOperation = utils.toTerraformName(appPrefix, `amaor${endpoint}`)
 
+    const operationId = `${endpoint.replace('/', '-')}POST`
     return new apiManagementApiOperation.ApiManagementApiOperation(
       terraformStackResource,
       idApiManagementApiOperation,
       {
-        operationId: `${endpoint}POST`,
+        operationId: operationId,
         apiName: apiManagementApi.name,
         apiManagementName: apiManagementApi.apiManagementName,
         resourceGroupName: resourceGroupName,
-        displayName: `/webhook/${endpoint}`,
+        displayName: `/${endpoint}`,
         method: 'POST',
-        urlTemplate: `/webhook/${endpoint}`,
+        urlTemplate: `/${endpoint}`,
         description: '',
         response: [
           {

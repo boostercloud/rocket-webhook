@@ -11,24 +11,15 @@ export type APIResult =
 export class WebhookController {
   public router: express.Router = express.Router()
 
-  constructor(origin: string) {
-    this.router.post(`/${origin}`, express.raw({ type: 'application/json' }), this.handleWebhook.bind(this))
+  constructor(readonly endpoint: string) {
+    this.router.post(`/${endpoint}`, express.raw(), this.handleWebhook.bind(this))
   }
 
   public async handleWebhook(req: express.Request, res: express.Response, next: express.NextFunction): Promise<void> {
     try {
       const request = {
         [rocketFunctionIDEnvVar]: functionID,
-        req: {
-          method: 'POST',
-          url: req.url,
-          originalUrl: req.originalUrl,
-          headers: req.headers,
-          query: req.query,
-          params: req.params,
-          rawBody: req.rawBody,
-          body: req.body,
-        },
+        req: req,
       }
       const response = (await boosterRocketDispatcher(request)) as APIResult
       if (response.status === 'success') {

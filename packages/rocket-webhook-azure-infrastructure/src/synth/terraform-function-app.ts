@@ -1,5 +1,5 @@
 import { TerraformStack } from 'cdktf'
-import { BoosterConfig } from '@boostercloud/framework-types'
+import { BoosterConfig, rocketFunctionIDEnvVar } from '@boostercloud/framework-types'
 import { ApplicationSynthStack, RocketUtils } from '@boostercloud/framework-provider-azure-infrastructure'
 import { getFunctionAppName } from '../helper'
 import { functionID } from '@boostercloud/rocket-webhook-types'
@@ -35,7 +35,7 @@ export class TerraformFunctionApp {
         BOOSTER_ENV: config.environmentName,
         BOOSTER_REST_API_URL: `https://${apiManagementServiceName}.azure-api.net/${config.environmentName}`,
         COSMOSDB_CONNECTION_STRING: `AccountEndpoint=https://${cosmosDatabaseName}.documents.azure.com:443/;AccountKey=${cosmosDbConnectionString};`,
-        BOOSTER_ROCKET_FUNCTION_ID: functionID,
+        [rocketFunctionIDEnvVar]: functionID,
       },
       storageAccountName: storageAccount.name,
       storageAccountAccessKey: storageAccount.primaryAccessKey,

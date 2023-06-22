@@ -1,13 +1,17 @@
 import { BoosterConfig, Register, UUID } from '@boostercloud/framework-types'
 import {
+  getRoute,
+  Helper,
   WebhookEvent,
+  WebhookHandlerReturnType,
   WebhookParams,
   WebhookParamsEvent,
+  WebhookMultipartForm,
   WebhookRequest,
-  Helper,
-  WebhookHandlerReturnType,
+  MultiPartConfig,
 } from '@boostercloud/rocket-webhook-types'
 import { RegisterHandler } from '@boostercloud/framework-core'
+import { parseMultipartFormData } from './parse-multi-part'
 
 export async function dispatch(
   config: BoosterConfig,
@@ -19,7 +23,7 @@ export async function dispatch(
     const requestId = UUID.generate()
     const webhookParamsEvent = getWebhookParamsEvent(params, request)
     const handlerClass = webhookParamsEvent.handlerClass
-    const webhookEvent = toWebhookEvent(webhookParamsEvent, request)
+    const webhookEvent = await toWebhookEvent(webhookParamsEvent, request)
     const register = new Register(requestId, {}, RegisterHandler.flush)
     const result: WebhookHandlerReturnType | void = await handlerClass.handle(webhookEvent, register)
     await RegisterHandler.handle(config, register)
@@ -32,18 +36,37 @@ export async function dispatch(
   }
 }
 
-function toWebhookEvent(webhookParamsEvent: WebhookParamsEvent, request: WebhookRequest): WebhookEvent {
+async function toWebhookEvent(webhookParamsEvent: WebhookParamsEvent, request: WebhookRequest): Promise<WebhookEvent> {
+  const req = request.req
+  const multiPart = await resolveMultipart(req, webhookParamsEvent.multiPartConfig)
   return {
     origin: webhookParamsEvent.origin,
-    ...request.req,
+    route: webhookParamsEvent.route ?? webhookParamsEvent.origin,
+    method: 'POST',
+    url: req.url,
+    originalUrl: req.originalUrl,
+    headers: req.headers,
+    query: req.query,
+    params: req.params,
+    rawBody: req.rawBody,
+    body: req.body,
+    multipart: multiPart,
   } as WebhookEvent
 }
 
 function getWebhookParamsEvent(params: WebhookParams, request: WebhookRequest): WebhookParamsEvent {
-  const origin = Helper.getOriginFromRequest(request)
-  const param = params.find((p: WebhookParamsEvent) => p.origin === origin)
+  const requestRoute = Helper.getRouteFromRequest(request)
+  const param = params.find((p: WebhookParamsEvent) => getRoute(p) === requestRoute)
   if (param) {
     return param
   }
-  throw new Error(`Could not find origin ${origin} in parameters.`)
+  throw new Error(`Could not find route ${requestRoute} in parameters.`)
+}
+
+async function resolveMultipart(req: any, config?: MultiPartConfig): Promise<WebhookMultipartForm | undefined> {
+  const contype = req.headers['content-type']
+  if (!contype || contype.indexOf('multipart/form-data') !== 0) {
+    return
+  }
+  return await parseMultipartFormData(req, config)
 }

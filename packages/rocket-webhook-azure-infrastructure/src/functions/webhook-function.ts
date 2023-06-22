@@ -11,8 +11,9 @@ export declare type WebhookHttpFunctionDefinition = FunctionDefinition<WebhookHt
 
 export class WebhookFunction {
   static getFunctionDefinition(config: BoosterConfig, endpoint: string): WebhookHttpFunctionDefinition {
+    const name = endpoint.replace('/', '_')
     return {
-      name: endpoint,
+      name: name,
       config: {
         bindings: [
           {
@@ -21,7 +22,7 @@ export class WebhookFunction {
             name: 'rawRequest',
             authLevel: 'anonymous',
             methods: ['post'],
-            route: `webhook/${endpoint}`,
+            route: `${endpoint}`,
           },
           {
             type: 'http',
