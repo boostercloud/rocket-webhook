@@ -12,6 +12,8 @@ import {
 } from '@boostercloud/rocket-webhook-types'
 import { RegisterHandler } from '@boostercloud/framework-core'
 import { parseMultipartFormData } from './parse-multi-part'
+import { WebhookTokenVerifier } from './webhook-token-verifier'
+import { WebhookAuthorizationChecker } from './webhook-authorization-checker'
 
 export async function dispatch(
   config: BoosterConfig,
@@ -23,6 +25,10 @@ export async function dispatch(
     const requestId = UUID.generate()
     const webhookParamsEvent = getWebhookParamsEvent(params, request)
     const handlerClass = webhookParamsEvent.handlerClass
+
+    const userEnvelope = await WebhookTokenVerifier.verify(config, request)
+    await WebhookAuthorizationChecker.authorize(config, webhookParamsEvent.authorize, userEnvelope, request)
+
     const webhookEvent = await toWebhookEvent(webhookParamsEvent, request)
     const register = new Register(requestId, {}, RegisterHandler.flush)
     const result: WebhookHandlerReturnType | void = await handlerClass.handle(webhookEvent, register)

@@ -1,7 +1,13 @@
 import { WebhookHandlerClassInterface } from './webhook-handler'
 import { MultiPartConfig } from './webhook-multipart-form'
+import { Class, RoleInterface, UserEnvelope } from '@boostercloud/framework-types'
+import { WebhookRequest } from './webhook-request'
 
 export const functionID = 'rocket-webhook'
+
+export type WebhookAuthorizer = (currentUser?: UserEnvelope, request?: WebhookRequest) => Promise<void>
+
+export type WebhookRoleAccess = 'all' | Array<Class<RoleInterface>> | WebhookAuthorizer
 
 export interface WebhookParamsEvent {
   // @deprecated Use route parameter
@@ -9,6 +15,7 @@ export interface WebhookParamsEvent {
   route?: string
   handlerClass: WebhookHandlerClassInterface
   multiPartConfig?: MultiPartConfig
+  authorize?: WebhookRoleAccess
 }
 
 export type WebhookParams = Array<WebhookParamsEvent>
