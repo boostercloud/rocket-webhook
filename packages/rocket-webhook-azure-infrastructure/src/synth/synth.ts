@@ -74,8 +74,7 @@ export class Synth {
       functionApp.name,
       terraformStack,
       apiManagementApiOperation,
-      resourceGroupName,
-      endpoint
+      resourceGroupName
     )
     rocketStack.push(apiManagementApiOperation)
     rocketStack.push(apiManagementApiOperationPolicy)

@@ -67,7 +67,8 @@ export class TestHandler {
       throw new InvalidParameterError("Error message");
     }
     return Promise.resolve({
-      body: { name: "my_name" }
+      body: { name: "my_name" },
+      responseType: WebhookResponseType.json,
     });
   }
 }
@@ -75,7 +76,7 @@ export class TestHandler {
 
 ## Return type
 
-Handle methods return a promise of WebhookHandlerReturnType or void. This object contains the headers and body to be returned as response. Example:
+Handle methods return a promise of WebhookHandlerReturnType or void. This object contains the headers and body to be returned as response. You need to specify the responseType. Example:
 
 ```typescript
   public static async handle(
@@ -87,8 +88,53 @@ Handle methods return a promise of WebhookHandlerReturnType or void. This object
       headers: {
         Test: 'test header',
       },
+      responseType: WebhookResponseType.text,
     })
   }
+```
+
+To return a file set the responseType to `WebhookResponseType.file`. Specify the name and mime type in the `file` field.
+
+Example:
+
+```typescript
+    const result: WebhookHandlerReturnType = {
+  body: file,
+  file: {
+    name: '1.txt',
+    mimeType: WebhookResponseType.text,
+  },
+  responseType: WebhookResponseType.file,
+}
+```
+
+## Authorization
+
+To define with roles can access each point use the `authorize` configuration parameter as the `authorize` parameter in Booster.
+
+Example:
+
+```typescript
+{
+  route: 'all',
+        handlerClass: AllHandlerDispatcher,
+        authorize: 'all',
+},
+{
+  route: 'test/roles',
+        handlerClass: AdminHandlerDispatcher,
+        authorize: [Admin],
+},
+{
+  route: 'custom',
+        handlerClass: CustomHandlerDispatcher,
+        authorize: (currentUser?: UserEnvelope, request?: WebhookRequest): Promise<void> => {
+          if (currentUser?.username !== 'test@test.com') {
+            return Promise.reject('Unexpected user')
+          }
+          return Promise.resolve()
+        },
+},
 ```
 
 ## Usage

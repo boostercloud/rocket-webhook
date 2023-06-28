@@ -2,18 +2,19 @@ import { BoosterConfig, Register, UUID } from '@boostercloud/framework-types'
 import {
   getRoute,
   Helper,
+  MultiPartConfig,
   WebhookEvent,
   WebhookHandlerReturnType,
+  WebhookMultipartForm,
   WebhookParams,
   WebhookParamsEvent,
-  WebhookMultipartForm,
   WebhookRequest,
-  MultiPartConfig,
 } from '@boostercloud/rocket-webhook-types'
 import { RegisterHandler } from '@boostercloud/framework-core'
 import { parseMultipartFormData } from './parse-multi-part'
 import { WebhookTokenVerifier } from './webhook-token-verifier'
 import { WebhookAuthorizationChecker } from './webhook-authorization-checker'
+import { WebhookResponse } from './response/webhook-response'
 
 export async function dispatch(
   config: BoosterConfig,
@@ -34,11 +35,11 @@ export async function dispatch(
     const result: WebhookHandlerReturnType | void = await handlerClass.handle(webhookEvent, register)
     await RegisterHandler.handle(config, register)
     if (result) {
-      return config.provider.api.requestSucceeded(result.body, result.headers)
+      return WebhookResponse.responseSuccess(result)
     }
-    return config.provider.api.requestSucceeded()
+    return WebhookResponse.responseSuccess()
   } catch (e) {
-    return config.provider.api.requestFailed(e)
+    return WebhookResponse.responseFailure(e)
   }
 }
 
