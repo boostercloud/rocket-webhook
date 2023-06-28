@@ -169,7 +169,7 @@ The webhookEventInterface object will be similar to this one:
 
 ## Multipart/form-data requests
 
-Endpoints accepts multipart/form-data requests. The `WebhookEvent` will contains a new `multiPart` object with the files and fields in the request. Example:
+Endpoints accepts multipart/form-data requests. The `WebhookEvent` will contain a new `multiPart` object with the files and fields in the request. Example:
 
 ```json
 {
