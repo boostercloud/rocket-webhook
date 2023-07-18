@@ -40,7 +40,7 @@ export class WebhookResponseBuilder {
       this.webhookBaseResponse = new WebhookTextResponse()
       return
     }
-    console.log('Unexpected response type. Using Json')
+    console.log('Unexpected response type. Using File')
     this.webhookBaseResponse = new WebhookFileResponse()
   }
 
