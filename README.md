@@ -93,7 +93,7 @@ Handle methods return a promise of WebhookHandlerReturnType or void. This object
   }
 ```
 
-To return a file set the responseType to `WebhookResponseType.file`. Specify the name and mime type in the `file` field.
+To return a file, set the responseType to `WebhookResponseType.file`. Specify the name and mime type in the `file` field.
 
 Example:
 
