@@ -23,7 +23,7 @@ export class WebhookController {
     try {
       const request = {
         [rocketFunctionIDEnvVar]: functionID,
-        req: req,
+        req,
       }
       const response: WebhookAPIResult = (await boosterRocketDispatcher(request)) as WebhookAPIResult
       res.status(response.status)
