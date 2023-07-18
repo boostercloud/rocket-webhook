@@ -11,9 +11,7 @@ export class WebhookAuthorizationChecker {
   ): Promise<void> {
     if (authorizer) {
       const webhookAuthorizer: WebhookAuthorizer = WebhookAuthorizerBuilder.build(authorizer)
-      if (webhookAuthorizer) {
-        await webhookAuthorizer(userEnvelope, request)
-      }
+      await webhookAuthorizer(userEnvelope, request)
     }
   }
 }
