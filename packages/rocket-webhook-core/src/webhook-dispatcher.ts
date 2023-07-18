@@ -72,8 +72,12 @@ function getWebhookParamsEvent(params: WebhookParams, request: WebhookRequest): 
 
 async function resolveMultipart(req: any, config?: MultiPartConfig): Promise<WebhookMultipartForm | undefined> {
   const contype = req.headers['content-type']
-  if (!contype || contype.indexOf('multipart/form-data') !== 0) {
+  if (!contype || !hasMultiPart(contype)) {
     return
   }
   return await parseMultipartFormData(req, config)
+}
+
+function hasMultiPart(contype: string) {
+  return /multipart\/form-data/i.test(contype)
 }
