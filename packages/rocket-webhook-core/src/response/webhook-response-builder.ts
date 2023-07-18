@@ -1,11 +1,4 @@
-import {
-  Headers,
-  WebhookHandlerFileReturnType,
-  WebhookHandlerJsonReturnType,
-  WebhookHandlerReturnType,
-  WebhookHandlerTextReturnType,
-  WebhookResponseType,
-} from '@boostercloud/rocket-webhook-types'
+import { Headers, WebhookHandlerReturnType, WebhookResponseType } from '@boostercloud/rocket-webhook-types'
 import { WebhookFileResponse } from './responder/webhook-file-response'
 import { WebhookJsonResponse } from './responder/webhook-json-response'
 import { WebhookTextResponse } from './responder/webhook-text-response'
@@ -28,20 +21,20 @@ export class WebhookResponseBuilder {
       this.webhookBaseResponse = new WebhookEmptyResponse()
       return
     }
-    if (this.isFile(response)) {
-      this.webhookBaseResponse = new WebhookFileResponse()
-      return
+    switch (response.responseType) {
+      case WebhookResponseType.file:
+        this.webhookBaseResponse = new WebhookFileResponse()
+        return
+      case WebhookResponseType.json:
+        this.webhookBaseResponse = new WebhookJsonResponse()
+        return
+      case WebhookResponseType.text:
+        this.webhookBaseResponse = new WebhookTextResponse()
+        return
+      default:
+        console.log('Unexpected response type. Using File')
+        this.webhookBaseResponse = new WebhookFileResponse()
     }
-    if (this.isJson(response)) {
-      this.webhookBaseResponse = new WebhookJsonResponse()
-      return
-    }
-    if (this.isText(response)) {
-      this.webhookBaseResponse = new WebhookTextResponse()
-      return
-    }
-    console.log('Unexpected response type. Using File')
-    this.webhookBaseResponse = new WebhookFileResponse()
   }
 
   public getBody(): unknown {
@@ -55,17 +48,5 @@ export class WebhookResponseBuilder {
     }
     const customHeaders = this.webhookBaseResponse.getHeaders(this.response)
     return { ...headers, ...customHeaders }
-  }
-
-  private isText(response: WebhookHandlerReturnType): response is WebhookHandlerTextReturnType {
-    return (response as WebhookHandlerTextReturnType).responseType === WebhookResponseType.text
-  }
-
-  private isJson(response: WebhookHandlerReturnType): response is WebhookHandlerJsonReturnType {
-    return (response as WebhookHandlerJsonReturnType).responseType === WebhookResponseType.json
-  }
-
-  private isFile(response: WebhookHandlerReturnType): response is WebhookHandlerFileReturnType {
-    return (response as WebhookHandlerFileReturnType).responseType === WebhookResponseType.file
   }
 }
