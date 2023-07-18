@@ -4,7 +4,6 @@ import { requestFailed } from '../http'
 import { rocketFunctionIDEnvVar } from '@boostercloud/framework-types'
 import {
   functionID,
-  Headers,
   HttpSuccessStatusCode,
   WebhookAPIResult,
   WebhookAPISuccessResult,
@@ -30,7 +29,7 @@ export class WebhookController {
       if (this.isSuccess(response)) {
         const body = response.body
         this.setHeaders(response, res)
-        const type = this.getType(response?.headers)
+        const type = response?.headers['Content-type']
         if (type === WebhookResponseType.file) {
           const readStream = new stream.PassThrough()
           readStream.end(response.body)
@@ -47,19 +46,6 @@ export class WebhookController {
       const err = e as Error
       await requestFailed(err, res)
       next(e)
-    }
-  }
-
-  private getType(headers: Headers): WebhookResponseType {
-    const contentType = headers['Content-type']
-
-    switch (contentType) {
-      case WebhookResponseType.json:
-        return WebhookResponseType.json
-      case WebhookResponseType.text:
-        return WebhookResponseType.text
-      default:
-        return WebhookResponseType.file
     }
   }
 

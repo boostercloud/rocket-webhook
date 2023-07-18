@@ -1,8 +1,8 @@
 import { Headers, WebhookHandlerReturnType, WebhookResponseType } from '@boostercloud/rocket-webhook-types'
-import { WebhookFileResponse } from './responder/webhook-file-response'
-import { WebhookJsonResponse } from './responder/webhook-json-response'
-import { WebhookTextResponse } from './responder/webhook-text-response'
-import { WebhookEmptyResponse } from './responder/webhook-empty-response'
+import { WebhookFileResponse } from './responses/webhook-file-response'
+import { WebhookJsonResponse } from './responses/webhook-json-response'
+import { WebhookTextResponse } from './responses/webhook-text-response'
+import { WebhookEmptyResponse } from './responses/webhook-empty-response'
 
 export interface WebhookResponseClass {
   getBody(response?: WebhookHandlerReturnType): unknown
