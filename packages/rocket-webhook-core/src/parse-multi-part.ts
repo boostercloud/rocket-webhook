@@ -14,8 +14,8 @@ export async function parseMultipartFormData(
 ): Promise<WebhookMultipartForm> {
   return new Promise((resolve, reject) => {
     try {
-      const fields: Promise<WebhookParsedField>[] = []
-      const files: Promise<WebhookParsedFile>[] = []
+      const fields: Array<WebhookParsedField> = []
+      const files: Array<WebhookParsedFile> = []
 
       let bb: Busboy.Busboy
       if (multiPartConfig) {
@@ -37,39 +37,31 @@ export async function parseMultipartFormData(
 
         stream.on('end', function () {
           const bufferFile = Buffer.concat(arrayBuffer)
-          files.push(
-            new Promise((resolve) => {
-              resolve({
-                name,
-                bufferFile,
-                filename,
-                encoding,
-                mimeType,
-              })
-            })
-          )
+          files.push({
+            name,
+            bufferFile,
+            filename,
+            encoding,
+            mimeType,
+          })
         })
       })
 
       bb.on('field', function (name, value, { nameTruncated, valueTruncated, encoding, mimeType }) {
-        fields.push(
-          new Promise((resolve) => {
-            resolve({
-              name,
-              value,
-              nameTruncated,
-              valueTruncated,
-              encoding,
-              mimeType,
-            })
-          })
-        )
+        fields.push({
+          name,
+          value,
+          nameTruncated,
+          valueTruncated,
+          encoding,
+          mimeType,
+        })
       })
 
       bb.on('finish', async function () {
         resolve({
-          fields: await Promise.all(fields),
-          files: await Promise.all(files),
+          fields: fields,
+          files: files,
         })
       })
 
