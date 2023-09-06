@@ -1,7 +1,12 @@
 import { EventInterface } from '@boostercloud/framework-types'
+import { WebhookMultipartForm } from './webhook-multipart-form'
 
 export interface WebhookEvent extends EventInterface {
-  origin: string
+  /**
+   * @deprecated Use route parameter
+   */
+  origin?: string
+  route: string
   method: string
   url: string
   originalUrl: string
@@ -10,4 +15,5 @@ export interface WebhookEvent extends EventInterface {
   params: unknown
   rawBody: string
   body: Record<string, unknown>
+  multipart?: WebhookMultipartForm
 }

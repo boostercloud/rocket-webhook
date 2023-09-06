@@ -2,6 +2,7 @@ import { ApplicationSynthStack, RocketUtils } from '@boostercloud/framework-prov
 import { TerraformStack } from 'cdktf'
 import { apiManagementApi, apiManagementApiOperation } from '@cdktf/provider-azurerm'
 import { AzurermProvider } from '@cdktf/provider-azurerm/lib/provider'
+import { UUID } from '@boostercloud/framework-types'
 
 export class TerraformApiManagementApiOperation {
   static build(
@@ -14,19 +15,21 @@ export class TerraformApiManagementApiOperation {
     endpoint: string
   ): apiManagementApiOperation.ApiManagementApiOperation {
     const apiManagementApi: apiManagementApi.ApiManagementApi = applicationSynthStack.apiManagementApi!
-    const idApiManagementApiOperation = utils.toTerraformName(appPrefix, `amaor${endpoint}`)
+    const suffix = UUID.generate().toString().substring(0, 23)
+    const idApiManagementApiOperation = utils.toTerraformName(appPrefix, suffix)
 
+    const operationId = `${endpoint.replace('/', '-')}POST`
     return new apiManagementApiOperation.ApiManagementApiOperation(
       terraformStackResource,
       idApiManagementApiOperation,
       {
-        operationId: `${endpoint}POST`,
+        operationId: operationId,
         apiName: apiManagementApi.name,
         apiManagementName: apiManagementApi.apiManagementName,
         resourceGroupName: resourceGroupName,
-        displayName: `/webhook/${endpoint}`,
+        displayName: `/${endpoint}`,
         method: 'POST',
-        urlTemplate: `/webhook/${endpoint}`,
+        urlTemplate: `/${endpoint}`,
         description: '',
         response: [
           {

@@ -3,6 +3,7 @@ import { TerraformStack } from 'cdktf'
 import * as Mustache from 'mustache'
 import { AzurermProvider } from '@cdktf/provider-azurerm/lib/provider'
 import { apiManagementApiOperation, apiManagementApiOperationPolicy } from '@cdktf/provider-azurerm'
+import { UUID } from '@boostercloud/framework-types'
 
 export class TerraformApiManagementApiOperationPolicy {
   static build(
@@ -12,10 +13,10 @@ export class TerraformApiManagementApiOperationPolicy {
     functionAppName: string,
     terraformStack: TerraformStack,
     apiManagementApiOperationResource: apiManagementApiOperation.ApiManagementApiOperation,
-    resourceGroupName: string,
-    endpoint: string
+    resourceGroupName: string
   ): apiManagementApiOperationPolicy.ApiManagementApiOperationPolicy {
-    const idApiManagementApiOperationPolicy = utils.toTerraformName(appPrefix, `amaopr${endpoint}`)
+    const suffix = UUID.generate().toString().substring(0, 23)
+    const idApiManagementApiOperationPolicy = utils.toTerraformName(appPrefix, suffix)
     const policyContent = Mustache.render(templates.policy, { functionAppName: functionAppName })
     return new apiManagementApiOperationPolicy.ApiManagementApiOperationPolicy(
       terraformStack,

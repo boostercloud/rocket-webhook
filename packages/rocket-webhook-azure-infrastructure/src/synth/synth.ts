@@ -1,4 +1,4 @@
-import { WebhookParams, WebhookParamsEvent } from '@boostercloud/rocket-webhook-types'
+import { getRoute, WebhookParams } from '@boostercloud/rocket-webhook-types'
 import { BoosterConfig } from '@boostercloud/framework-types'
 import { ApplicationSynthStack, RocketUtils } from '@boostercloud/framework-provider-azure-infrastructure'
 import { TerraformApiManagementApiOperation } from './terraform-api-management-api-operation'
@@ -38,7 +38,7 @@ export class Synth {
         utils,
         appPrefix,
         resourceGroupName,
-        param,
+        getRoute(param),
         functionApp,
         rocketStack
       )
@@ -54,7 +54,7 @@ export class Synth {
     utils: RocketUtils,
     appPrefix: string,
     resourceGroupName: string,
-    param: WebhookParamsEvent,
+    endpoint: string,
     functionApp: windowsFunctionApp.WindowsFunctionApp,
     rocketStack: Array<TerraformResource>
   ): void {
@@ -65,7 +65,7 @@ export class Synth {
       utils,
       appPrefix,
       resourceGroupName,
-      param.origin
+      endpoint
     )
     const apiManagementApiOperationPolicy = TerraformApiManagementApiOperationPolicy.build(
       providerResource,
@@ -74,8 +74,7 @@ export class Synth {
       functionApp.name,
       terraformStack,
       apiManagementApiOperation,
-      resourceGroupName,
-      param.origin
+      resourceGroupName
     )
     rocketStack.push(apiManagementApiOperation)
     rocketStack.push(apiManagementApiOperationPolicy)

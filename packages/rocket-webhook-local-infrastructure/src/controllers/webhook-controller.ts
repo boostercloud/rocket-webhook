@@ -1,48 +1,61 @@
 import * as express from 'express'
 import { boosterRocketDispatcher } from '@boostercloud/framework-core'
-import { HttpCodes, requestFailed } from '../http'
+import { requestFailed } from '../http'
 import { rocketFunctionIDEnvVar } from '@boostercloud/framework-types'
-import { functionID } from '@boostercloud/rocket-webhook-types'
-
-export type APIResult =
-  | { status: 'success'; result: unknown; headers: Record<string, number | string | ReadonlyArray<string>> }
-  | { status: 'failure'; code: number; title: string; reason: string }
+import {
+  functionID,
+  HttpSuccessStatusCode,
+  WebhookAPIResult,
+  WebhookAPISuccessResult,
+  WebhookResponseType,
+} from '@boostercloud/rocket-webhook-types'
+import * as stream from 'stream'
 
 export class WebhookController {
   public router: express.Router = express.Router()
 
-  constructor(origin: string) {
-    this.router.post(`/${origin}`, express.raw({ type: 'application/json' }), this.handleWebhook.bind(this))
+  constructor(readonly endpoint: string) {
+    this.router.post(`/${endpoint}`, express.raw(), this.handleWebhook.bind(this))
   }
 
   public async handleWebhook(req: express.Request, res: express.Response, next: express.NextFunction): Promise<void> {
     try {
       const request = {
         [rocketFunctionIDEnvVar]: functionID,
-        req: {
-          method: 'POST',
-          url: req.url,
-          originalUrl: req.originalUrl,
-          headers: req.headers,
-          query: req.query,
-          params: req.params,
-          rawBody: req.rawBody,
-          body: req.body,
-        },
+        req,
       }
-      const response = (await boosterRocketDispatcher(request)) as APIResult
-      if (response.status === 'success') {
-        for (const headersKey in response.headers) {
-          res.setHeader(headersKey, response.headers[headersKey])
+      const response: WebhookAPIResult = (await boosterRocketDispatcher(request)) as WebhookAPIResult
+      res.status(response.status)
+      if (this.isSuccess(response)) {
+        const body = response.body
+        this.setHeaders(response, res)
+        const type = response?.headers['Content-type']
+        if (type === WebhookResponseType.file) {
+          const readStream = new stream.PassThrough()
+          readStream.end(response.body)
+          readStream.pipe(res)
+        } else if (type === WebhookResponseType.json) {
+          res.json(body)
+        } else {
+          res.send(body)
         }
-        res.status(HttpCodes.Ok).json(response.result)
-      } else {
-        res.status(response.code).json({ title: response.title, reason: response.reason })
+        return
       }
+      res.json(response.body)
     } catch (e) {
       const err = e as Error
       await requestFailed(err, res)
       next(e)
     }
+  }
+
+  private setHeaders(response: WebhookAPISuccessResult, res: express.Response): void {
+    for (const headersKey in response.headers) {
+      res.setHeader(headersKey, response.headers[headersKey])
+    }
+  }
+
+  private isSuccess(response: WebhookAPIResult): response is WebhookAPISuccessResult {
+    return (response as WebhookAPISuccessResult).status === HttpSuccessStatusCode
   }
 }
