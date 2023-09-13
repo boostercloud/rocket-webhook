@@ -31,7 +31,7 @@ export async function dispatch(
     await WebhookAuthorizationChecker.authorize(config, webhookParamsEvent.authorize, userEnvelope, request)
 
     const webhookEvent = await toWebhookEvent(webhookParamsEvent, request)
-    const register = new Register(requestId, {}, RegisterHandler.flush)
+    const register = new Register(requestId, {}, RegisterHandler.flush, userEnvelope)
     const result: WebhookHandlerReturnType | void = await handlerClass.handle(webhookEvent, register)
     await RegisterHandler.handle(config, register)
     if (result) {
