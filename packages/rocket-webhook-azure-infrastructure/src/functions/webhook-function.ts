@@ -11,7 +11,7 @@ export declare type WebhookHttpFunctionDefinition = FunctionDefinition<WebhookHt
 
 export class WebhookFunction {
   static getFunctionDefinition(config: BoosterConfig, endpoint: string): WebhookHttpFunctionDefinition {
-    const name = endpoint.replace('/', '_')
+    const name = endpoint.replace(/\//g, '_')
     return {
       name: name,
       config: {

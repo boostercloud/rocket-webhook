@@ -18,7 +18,7 @@ export class TerraformApiManagementApiOperation {
     const suffix = UUID.generate().toString().substring(0, 23)
     const idApiManagementApiOperation = utils.toTerraformName(appPrefix, suffix)
 
-    const operationId = `${endpoint.replace('/', '-')}POST`
+    const operationId = `${endpoint.replace(/\//g, '-')}POST`
     return new apiManagementApiOperation.ApiManagementApiOperation(
       terraformStackResource,
       idApiManagementApiOperation,
