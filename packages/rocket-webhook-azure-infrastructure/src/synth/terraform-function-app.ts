@@ -1,30 +1,39 @@
-import { TerraformStack } from 'cdktf'
 import { BoosterConfig, rocketFunctionIDEnvVar } from '@boostercloud/framework-types'
 import { ApplicationSynthStack, RocketUtils } from '@boostercloud/framework-provider-azure-infrastructure'
-import { getFunctionAppName } from '../helper'
 import { functionID } from '@boostercloud/rocket-webhook-types'
-import { AzurermProvider } from '@cdktf/provider-azurerm/lib/provider'
 import { windowsFunctionApp } from '@cdktf/provider-azurerm'
+import { getFunctionAppName } from '../helper'
 
 export class TerraformFunctionApp {
   static build(
-    providerResource: AzurermProvider,
-    terraformStack: TerraformStack,
-    applicationSynthStack: ApplicationSynthStack,
+    {
+      terraformStack,
+      azureProvider,
+      resourceGroup,
+      resourceGroupName,
+      applicationServicePlan,
+      storageAccount,
+      cosmosdbDatabase,
+      appPrefix,
+    }: ApplicationSynthStack,
     config: BoosterConfig,
     utils: RocketUtils
   ): windowsFunctionApp.WindowsFunctionApp {
-    const resourceGroup = applicationSynthStack.resourceGroup!
-    const applicationServicePlan = applicationSynthStack.applicationServicePlan!
-    const storageAccount = applicationSynthStack.storageAccount!
-    const cosmosDatabaseName = applicationSynthStack.cosmosdbDatabase?.name
-    const apiManagementServiceName = applicationSynthStack.apiManagementName
-    const cosmosDbConnectionString = applicationSynthStack.cosmosdbDatabase?.primaryKey
-    const functionAppName = getFunctionAppName(applicationSynthStack)
+    if (!cosmosdbDatabase) {
+      throw new Error('Cosmosdb database not found')
+    }
+    if (!storageAccount) {
+      throw new Error('Storage account not found')
+    }
+    if (!applicationServicePlan) {
+      throw new Error('Application service plan not found')
+    }
+    const cosmosDatabaseName = cosmosdbDatabase?.name
+    const cosmosDbConnectionString = cosmosdbDatabase?.primaryKey
 
-    const id = utils.toTerraformName(applicationSynthStack.appPrefix, 'webhookfunc')
+    const id = utils.toTerraformName(appPrefix, 'webhookfunc')
     return new windowsFunctionApp.WindowsFunctionApp(terraformStack, id, {
-      name: functionAppName,
+      name: getFunctionAppName(resourceGroupName),
       location: resourceGroup.location,
       resourceGroupName: resourceGroup.name,
       servicePlanId: applicationServicePlan.id,
@@ -33,8 +42,8 @@ export class TerraformFunctionApp {
         WEBSITE_CONTENTSHARE: id,
         ...config.env,
         BOOSTER_ENV: config.environmentName,
-        BOOSTER_REST_API_URL: `https://${apiManagementServiceName}.azure-api.net/${config.environmentName}`,
         COSMOSDB_CONNECTION_STRING: `AccountEndpoint=https://${cosmosDatabaseName}.documents.azure.com:443/;AccountKey=${cosmosDbConnectionString};`,
+        WEBSITE_CONTENTAZUREFILECONNECTIONSTRING: storageAccount.primaryConnectionString,
         [rocketFunctionIDEnvVar]: functionID,
       },
       storageAccountName: storageAccount.name,
@@ -43,13 +52,13 @@ export class TerraformFunctionApp {
       lifecycle: {
         ignoreChanges: ['app_settings["WEBSITE_RUN_FROM_PACKAGE"]'],
       },
-      provider: providerResource,
+      provider: azureProvider,
       siteConfig: {
         applicationStack: {
-          nodeVersion: '~14',
+          nodeVersion: '~18',
         },
       },
-      functionsExtensionVersion: '~3', // keep it on version 3. Version 4 needs a migration process
+      functionsExtensionVersion: '~4',
     })
   }
 }

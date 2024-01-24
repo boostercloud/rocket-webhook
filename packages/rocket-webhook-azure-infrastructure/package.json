@@ -23,36 +23,33 @@
     "url": "git+https://github.com/boostercloud/rocket-webhook.git"
   },
   "peerDependencies": {
-    "@boostercloud/framework-core": ">=1.10.0",
-    "@boostercloud/framework-types": ">=1.10.0"
+    "@boostercloud/framework-core": ">=2.3.0",
+    "@boostercloud/framework-types": ">=2.3.0"
   },
   "dependencies": {
     "@boostercloud/rocket-webhook-types": "^0.6.0"
   },
   "devDependencies": {
-    "@boostercloud/framework-provider-azure-infrastructure": "1.10.0",
-    "@boostercloud/metadata-booster": "1.10.0",
-    "@cdktf/provider-azurerm": "5.0.13",
-    "@types/mustache": "^4.1.0",
-    "@types/node": "16.11.7",
-    "@typescript-eslint/eslint-plugin": "^4.29.0",
-    "@typescript-eslint/parser": "^4.29.0",
-    "cdktf": "^0.15.0",
-    "eslint": "^7.32.0",
-    "eslint-config-prettier": "^8.3.0",
-    "eslint-plugin-import": "^2.23.4",
-    "eslint-plugin-prettier": "^3.4.0",
-    "mustache": "4.1.0",
-    "nyc": "^15.1.0",
-    "prettier": "^2.3.2",
-    "ts-node": "^10.1.0",
-    "ts-patch": "^1.4.2",
+    "@boostercloud/framework-provider-azure-infrastructure": "2.3.0",
+    "@types/node": "^18.15.3",
+    "@typescript-eslint/eslint-plugin": "^5.0.0",
+    "@typescript-eslint/parser": "^5.0.0",
+    "cdktf": "0.19.2",
+    "@cdktf/provider-azurerm": "11.2.0",
+    "eslint": "^8.23.1",
+    "eslint-config-prettier": "8.3.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-prettier": "3.4.0",
+    "prettier": "2.3.0",
+    "ts-node": "^10.9.1",
+    "ts-patch": "2.0.2",
     "typescript": "4.7.4"
   },
   "scripts": {
+    "prepare": "ts-patch install -s",
     "lint:check": "eslint --ext '.js,.ts' **/*.ts",
     "lint:fix": "eslint --quiet --fix --ext '.js,.ts' **/*.ts",
-    "compile": "tsc -b tsconfig.json",
+    "build": "tsc -b tsconfig.json",
     "clean": "rimraf ./dist tsconfig.tsbuildinfo",
     "test": "nyc --extension .ts mocha --forbid-only \"test/**/*.test.ts\""
   },

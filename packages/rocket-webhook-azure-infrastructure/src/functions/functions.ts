@@ -10,6 +10,6 @@ export class Functions {
   }
 
   static getFunctionAppName(params: WebhookParams, applicationSynthStack: ApplicationSynthStack): string {
-    return getFunctionAppName(applicationSynthStack)
+    return getFunctionAppName(applicationSynthStack.resourceGroupName)
   }
 }

@@ -1,4 +1,2 @@
-import { ApplicationSynthStack } from '@boostercloud/framework-provider-azure-infrastructure'
-
-export const getFunctionAppName = (applicationSynthStack: ApplicationSynthStack): string =>
-  `${applicationSynthStack.resourceGroupName}webhookfunc`
+export const getFunctionAppName = (resourceGroupName: string): string =>
+  `${resourceGroupName}webhookfunc`
