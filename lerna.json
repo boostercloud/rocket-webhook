@@ -11,6 +11,7 @@
       "strict": true
     }
   },
-  "version": "0.6.0",
+  "useWorkspaces": true,
+  "version": "0.5.2",
   "npmClient": "npm"
 }

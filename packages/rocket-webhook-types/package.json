@@ -23,19 +23,19 @@
     "url": "git+https://github.com/boostercloud/rocket-webhook.git"
   },
   "peerDependencies": {
-    "@boostercloud/framework-core": ">=1.10.0",
-    "@boostercloud/framework-types": ">=1.10.0"
+    "@boostercloud/framework-core": ">=2.3.0",
+    "@boostercloud/framework-types": ">=2.3.0"
   },
   "devDependencies": {
-    "@boostercloud/metadata-booster": "1.10.0",
     "typescript": "4.7.4"
   },
   "scripts": {
+    "prepare": "ts-patch install -s",
     "lint:check": "eslint --ext '.js,.ts' **/*.ts",
     "lint:fix": "eslint --quiet --fix --ext '.js,.ts' **/*.ts",
-    "compile": "tsc -b tsconfig.json",
+    "build": "tsc -b tsconfig.json",
     "clean": "rimraf ./dist tsconfig.tsbuildinfo",
-    "prepack": "npm run compile",
+    "prepack": "npm run build",
     "test": "nyc --extension .ts mocha --forbid-only \"test/**/*.test.ts\""
   },
   "bugs": {
