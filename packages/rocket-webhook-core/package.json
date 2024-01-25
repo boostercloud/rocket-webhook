@@ -1,6 +1,6 @@
 {
   "name": "@boostercloud/rocket-webhook-core",
-  "version": "0.6.0",
+  "version": "0.7.0",
   "description": "Core part of the Booster rocket to integrate webhooks",
   "keywords": [
     "Booster",
@@ -30,7 +30,7 @@
     "@boostercloud/framework-types": ">=2.3.0"
   },
   "dependencies": {
-    "@boostercloud/rocket-webhook-types": "^0.6.0",
+    "@boostercloud/rocket-webhook-types": "^0.7.0",
     "busboy": "1.6.0"
   },
   "devDependencies": {

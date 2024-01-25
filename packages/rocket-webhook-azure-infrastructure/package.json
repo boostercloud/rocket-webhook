@@ -1,6 +1,6 @@
 {
   "name": "@boostercloud/rocket-webhook-azure-infrastructure",
-  "version": "0.6.0",
+  "version": "0.7.0",
   "description": "Azure Infrastructure part of the Booster rocket to integrate webhooks",
   "keywords": [
     "Booster",
@@ -27,15 +27,15 @@
     "@boostercloud/framework-types": ">=2.3.0"
   },
   "dependencies": {
-    "@boostercloud/rocket-webhook-types": "^0.6.0"
+    "@boostercloud/rocket-webhook-types": "^0.7.0"
   },
   "devDependencies": {
     "@boostercloud/framework-provider-azure-infrastructure": "2.3.0",
+    "@cdktf/provider-azurerm": "11.2.0",
     "@types/node": "^18.15.3",
     "@typescript-eslint/eslint-plugin": "^5.0.0",
     "@typescript-eslint/parser": "^5.0.0",
     "cdktf": "0.19.2",
-    "@cdktf/provider-azurerm": "11.2.0",
     "eslint": "^8.23.1",
     "eslint-config-prettier": "8.3.0",
     "eslint-plugin-import": "^2.26.0",
