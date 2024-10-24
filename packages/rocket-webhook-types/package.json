@@ -23,11 +23,11 @@
     "url": "git+https://github.com/boostercloud/rocket-webhook.git"
   },
   "peerDependencies": {
-    "@boostercloud/framework-core": ">=2.3.0",
-    "@boostercloud/framework-types": ">=2.3.0"
+    "@boostercloud/framework-core": ">=2.18.4",
+    "@boostercloud/framework-types": ">=2.18.4"
   },
   "devDependencies": {
-    "typescript": "4.7.4"
+    "typescript": "^5.6.3"
   },
   "scripts": {
     "prepare": "ts-patch install -s",
