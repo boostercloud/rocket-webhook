@@ -21,7 +21,7 @@ export class WebhookFunction {
             direction: 'in',
             name: 'rawRequest',
             authLevel: 'anonymous',
-            methods: ['post'],
+            methods: ['post', 'get'],
             route: `${endpoint}`,
           },
           {

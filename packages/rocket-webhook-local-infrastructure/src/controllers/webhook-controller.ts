@@ -16,6 +16,7 @@ export class WebhookController {
 
   constructor(readonly endpoint: string) {
     this.router.post(`/${endpoint}`, express.raw(), this.handleWebhook.bind(this))
+    this.router.get(`/${endpoint}`, express.raw(), this.handleWebhook.bind(this))
   }
 
   public async handleWebhook(req: express.Request, res: express.Response, next: express.NextFunction): Promise<void> {

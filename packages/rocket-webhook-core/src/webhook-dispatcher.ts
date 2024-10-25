@@ -1,5 +1,6 @@
 import { BoosterConfig, Register, UUID } from '@boostercloud/framework-types'
 import {
+  AllowedHttpMethods,
   getRoute,
   Helper,
   MultiPartConfig,
@@ -25,6 +26,16 @@ export async function dispatch(
     console.log('Webhook: request received')
     const requestId = UUID.generate()
     const webhookParamsEvent = getWebhookParamsEvent(params, request)
+
+    // Default allowedMethods to [POST] if not defined
+    const allowedMethods = webhookParamsEvent.allowedMethods ?? ['POST']
+
+    // Check if the request method is allowed
+    // @ts-ignore
+    if (!allowedMethods.includes(request.req.method as AllowedHttpMethods)) {
+      return WebhookResponse.responseFailure(new Error(`Method ${request.req.method} not allowed`))
+    }
+
     const handlerClass = webhookParamsEvent.handlerClass
 
     const userEnvelope = await WebhookTokenVerifier.verify(config, request)
