@@ -15,18 +15,23 @@ This Rocket supports the following Providers:
 Add your rocket to your application in the configuration file.
 
 ### Generic
+
 ```typescript
+import { AllowedHttpMethods } from '@boostercloud/rocket-webhook-types'
+
 function buildBoosterWebhook(config: BoosterConfig): BoosterWebhook {
-    return new BoosterWebhook(config, [
-        {
-            route: 'test',
-            handlerClass: TestHandler,
-        },
-        {
-            route: 'clients/other',
-            handlerClass: FacebookHandler,
-        },
-    ])
+  return new BoosterWebhook(config, [
+    {
+      route: 'test',
+      handlerClass: TestHandler,
+      allowedMethods: [AllowedHttpMethods.POST],
+    },
+    {
+      route: 'clients/other',
+      handlerClass: FacebookHandler,
+      allowedMethods: [AllowedHttpMethods.GET, AllowedHttpMethods.POST],
+    },
+  ])
 }
 ```
 
