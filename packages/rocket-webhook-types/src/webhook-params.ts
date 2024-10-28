@@ -9,7 +9,7 @@ export type WebhookAuthorizer = (currentUser?: UserEnvelope, request?: WebhookRe
 
 export type WebhookRoleAccess = 'all' | Array<Class<RoleInterface>> | WebhookAuthorizer
 
-export enum AllowedHttpMethods {
+export enum AllowedHttpMethod {
   GET = 'GET',
   POST = 'POST',
 }
@@ -21,7 +21,7 @@ export interface WebhookParamsEvent {
   handlerClass: WebhookHandlerClassInterface
   multiPartConfig?: MultiPartConfig
   authorize?: WebhookRoleAccess
-  allowedMethods?: Array<AllowedHttpMethods>
+  allowedMethods?: Array<AllowedHttpMethod>
 }
 
 export type WebhookParams = Array<WebhookParamsEvent>
