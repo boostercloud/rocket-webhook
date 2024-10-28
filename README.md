@@ -24,12 +24,12 @@ function buildBoosterWebhook(config: BoosterConfig): BoosterWebhook {
     {
       route: 'test',
       handlerClass: TestHandler,
-      allowedMethods: [AllowedHttpMethods.POST],
+      allowedMethods: [AllowedHttpMethod.POST],
     },
     {
       route: 'clients/other',
       handlerClass: FacebookHandler,
-      allowedMethods: [AllowedHttpMethods.GET, AllowedHttpMethods.POST],
+      allowedMethods: [AllowedHttpMethod.GET, AllowedHttpMethod.POST],
     },
   ])
 }
