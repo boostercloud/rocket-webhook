@@ -28,7 +28,7 @@ export async function dispatch(
     const webhookParamsEvent = getWebhookParamsEvent(params, request)
 
     // Default allowedMethods to [POST] if not defined
-    const allowedMethods = webhookParamsEvent.allowedMethods ?? AllowedHttpMethod.POST
+    const allowedMethods = webhookParamsEvent.allowedMethods ?? [AllowedHttpMethod.POST]
 
     // Check if the request method is allowed
     if (!allowedMethods.includes(request.req.method as AllowedHttpMethod)) {

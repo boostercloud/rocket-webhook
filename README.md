@@ -17,7 +17,7 @@ Add your rocket to your application in the configuration file.
 ### Generic
 
 ```typescript
-import { AllowedHttpMethods } from '@boostercloud/rocket-webhook-types'
+import { AllowedHttpMethod } from '@boostercloud/rocket-webhook-types'
 
 function buildBoosterWebhook(config: BoosterConfig): BoosterWebhook {
   return new BoosterWebhook(config, [
