@@ -1,6 +1,6 @@
 {
   "name": "@boostercloud/rocket-webhook-core",
-  "version": "0.7.0",
+  "version": "0.8.0",
   "description": "Core part of the Booster rocket to integrate webhooks",
   "keywords": [
     "Booster",
@@ -26,17 +26,17 @@
     "uuid"
   ],
   "peerDependencies": {
-    "@boostercloud/framework-core": ">=2.3.0",
-    "@boostercloud/framework-types": ">=2.3.0"
+    "@boostercloud/framework-core": ">=2.8.14",
+    "@boostercloud/framework-types": ">=2.8.14"
   },
   "dependencies": {
-    "@boostercloud/rocket-webhook-types": "^0.7.0",
+    "@boostercloud/rocket-webhook-types": "^0.8.0",
     "busboy": "1.6.0"
   },
   "devDependencies": {
     "@types/busboy": "1.5.0",
-    "tslib": "^2.4.0",
-    "typescript": "4.7.4"
+    "tslib": "^2.8.0",
+    "typescript": "^5.6.3"
   },
   "scripts": {
     "prepare": "ts-patch install -s",
@@ -49,5 +49,8 @@
   "bugs": {
     "url": "https://github.com/boostercloud/rocket-webhook/issues"
   },
-  "gitHead": "1641d1ebb7bc97c28334a9ebd08bb5767fe0ccc8"
+  "gitHead": "1641d1ebb7bc97c28334a9ebd08bb5767fe0ccc8",
+  "bundleDependencies": [
+    "uuid"
+  ]
 }
