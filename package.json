@@ -35,7 +35,7 @@
     "url": "https://github.com/boostercloud/booster/issues"
   },
   "peerDependencies": {
-    "@boostercloud/framework-core": ">=3.0.0",
-    "@boostercloud/framework-types": ">=3.0.0"
+    "@boostercloud/framework-core": ">=3.1.0",
+    "@boostercloud/framework-types": ">=3.1.0"
   }
 }
