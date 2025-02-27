@@ -26,8 +26,8 @@
     "uuid"
   ],
   "peerDependencies": {
-    "@boostercloud/framework-core": ">=2.8.14",
-    "@boostercloud/framework-types": ">=2.8.14"
+    "@boostercloud/framework-core": ">=3.1.0",
+    "@boostercloud/framework-types": ">=3.1.0"
   },
   "dependencies": {
     "@boostercloud/rocket-webhook-types": "^0.8.0",
