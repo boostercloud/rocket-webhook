@@ -11,14 +11,9 @@ export class Synth {
     params: WebhookParams,
     config: BoosterConfig,
     applicationSynthStack: ApplicationSynthStack,
-    utils: RocketUtils,
+    utils: RocketUtils
   ): Promise<ApplicationSynthStack> {
-
-    const functionApp = TerraformFunctionApp.build(
-      applicationSynthStack,
-      config,
-      utils,
-    )
+    const functionApp = TerraformFunctionApp.build(applicationSynthStack, config, utils)
     const rocketStack = applicationSynthStack.rocketStack ?? []
     rocketStack.push(functionApp)
 
@@ -32,9 +27,9 @@ export class Synth {
     appGateway?.addOverride('backend_address_pool', newBackendAddressPool)
 
     const names: Array<{
-      ruleName: string;
-      rewriteName: string,
-      route: string,
+      ruleName: string
+      rewriteName: string
+      route: string
     }> = params.map((param: WebhookParamsEvent) => {
       const suffix = UUID.generate().toString().substring(0, 23)
       const ruleName = utils.toTerraformName(applicationSynthStack.appPrefix, `ru${suffix}`)
