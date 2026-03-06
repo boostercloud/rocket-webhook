@@ -3,7 +3,7 @@ export class WebhookFunction {
     const name = endpoint.replace(/\//g, '_')
     return `
 const { app } = require('@azure/functions')
-const { boosterRockerDispatcher } = require('./dist/index')
+const { boosterRocketDispatcher } = require('./dist/index')
 
 app.http('${name}', {
   methods: ['POST', 'GET'],
@@ -49,7 +49,7 @@ app.http('${name}', {
       },
     }
     
-    const result = await boosterRockerDispatcher(webhookRequest)
+    const result = await boosterRocketDispatcher(webhookRequest)
     
     const responseBody = ((typeof result.body === 'object' && result.body !== null) && !Buffer.isBuffer(result.body))
       ? JSON.stringify(result.body)
