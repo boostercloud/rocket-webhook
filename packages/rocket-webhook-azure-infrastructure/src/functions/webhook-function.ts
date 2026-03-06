@@ -8,9 +8,6 @@ const { boosterRocketDispatcher } = require('./dist/index')
   static generateFunctionsCode(endpoint: string): string {
     const name = endpoint.replace(/\//g, '_')
     return `
-const { app } = require('@azure/functions')
-const { boosterRocketDispatcher } = require('./dist/index')
-
 app.http('${name}', {
   methods: ['POST', 'GET'],
   authLevel: 'anonymous',
