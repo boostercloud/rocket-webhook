@@ -16,7 +16,8 @@ export class Functions {
     _utils: RocketUtils
   ): Promise<FunctionAppV4Definitions> {
     const functionAppName = getFunctionAppName(applicationSynthStack.resourceGroupName)
-    const functionsCode = params.map((param) => WebhookFunction.generateFunctionsCode(getRoute(param))).join('\n')
+    const registrations = params.map((param) => WebhookFunction.generateFunctionsCode(getRoute(param))).join('\n')
+    const functionsCode = WebhookFunction.sharedImports() + registrations
     return [{ functionAppName, functionsCode }]
   }
 
