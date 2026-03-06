@@ -51,7 +51,7 @@ app.http('${name}', {
     
     const result = await boosterRockerDispatcher(webhookRequest)
     
-    const responseBody = (typeof result.body === 'object' && result.body !== null) && !Buffer.isBuffer(result.body))
+    const responseBody = ((typeof result.body === 'object' && result.body !== null) && !Buffer.isBuffer(result.body))
       ? JSON.stringify(result.body)
       : result.body
     
