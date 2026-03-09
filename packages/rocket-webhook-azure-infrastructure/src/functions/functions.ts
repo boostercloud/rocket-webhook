@@ -11,7 +11,7 @@ import { getFunctionAppName } from '../helper'
 export class Functions {
   static async mountFunctionsV4(
     params: WebhookParams,
-    config: BoosterConfig,
+    _config: BoosterConfig,
     applicationSynthStack: ApplicationSynthStack,
     _utils: RocketUtils
   ): Promise<FunctionAppV4Definitions> {
