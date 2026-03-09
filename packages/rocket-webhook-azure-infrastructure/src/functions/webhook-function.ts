@@ -6,12 +6,11 @@ const { boosterRocketDispatcher } = require('./dist/index')
   }
 
   static generateFunctionsCode(endpoint: string): string {
-    const name = endpoint.replace(/\//g, '_')
     return `
-app.http('${name}', {
+app.http(${JSON.stringify(endpoint.replace(/[^a-zA-Z0-9_]/g, '_'))}, {
   methods: ['POST', 'GET'],
   authLevel: 'anonymous',
-  route: '${endpoint}',
+  route: ${JSON.stringify(endpoint)},
   handler: async (request, context) => {
     const headers = {}
     request.headers.forEach((value, key) => { headers[key] = value })
@@ -39,7 +38,6 @@ app.http('${name}', {
     }
     
     const webhookRequest = {
-      ROCKET_FUNCTION_ID: process.env.ROCKET_FUNCTION_ID,
       req: {
         method: request.method,
         url: request.url,
