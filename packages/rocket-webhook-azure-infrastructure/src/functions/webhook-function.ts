@@ -6,6 +6,9 @@ const { boosterRocketDispatcher } = require('./dist/index')
   }
 
   static generateFunctionsCode(endpoint: string): string {
+    if (!endpoint) {
+      throw new Error('Webhook endpoint must be a non-empty string')
+    }
     return `
 app.http(${JSON.stringify(endpoint.replace(/[^a-zA-Z0-9_]/g, '_'))}, {
   methods: ['POST', 'GET'],
