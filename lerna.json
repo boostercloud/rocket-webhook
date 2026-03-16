@@ -2,15 +2,6 @@
   "packages": [
     "packages/*"
   ],
-  "command": {
-    "add": {
-      "exact": true
-    },
-    "bootstrap": {
-      "hoist": true,
-      "strict": true
-    }
-  },
   "version": "1.0.1",
   "npmClient": "npm"
 }

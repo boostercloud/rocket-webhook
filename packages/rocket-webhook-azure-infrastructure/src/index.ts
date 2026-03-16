@@ -5,8 +5,8 @@ import { WebhookParams } from '@boostercloud/rocket-webhook-types'
 
 const AzureWebhook = (params: WebhookParams): InfrastructureRocket => ({
   mountStack: Synth.mountStack.bind(Synth, params),
-  mountFunctions: Functions.mountFunctions.bind(Synth, params),
-  getFunctionAppName: Functions.getFunctionAppName.bind(Synth, params),
+  mountFunctionsV4: Functions.mountFunctionsV4.bind(Functions, params),
+  getFunctionAppName: Functions.getFunctionAppName.bind(Functions, params),
 })
 
 export default AzureWebhook

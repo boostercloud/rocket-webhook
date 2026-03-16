@@ -23,19 +23,22 @@
     "url": "git+https://github.com/boostercloud/rocket-webhook.git"
   },
   "peerDependencies": {
-    "@boostercloud/framework-core": ">=3.1.2",
-    "@boostercloud/framework-types": ">=3.1.2"
+    "@boostercloud/framework-core": ">=4.0.0",
+    "@boostercloud/framework-types": ">=4.0.0"
   },
   "dependencies": {
     "@boostercloud/rocket-webhook-types": "^1.0.1"
   },
   "devDependencies": {
-    "@boostercloud/framework-provider-azure-infrastructure": "3.1.2",
-    "@cdktf/provider-azurerm": "13.18.0",
-    "@types/node": "^20.17.17",
+    "@boostercloud/framework-core": "^4.0.0",
+    "@boostercloud/framework-provider-azure-infrastructure": "^4.0.0",
+    "@boostercloud/framework-types": "^4.0.0",
+    "@boostercloud/metadata-booster": "^4.0.0",
+    "@cdktf/provider-azurerm": "14.23.1",
+    "@types/node": "^22.0.0",
     "@typescript-eslint/eslint-plugin": "^8.11.0",
     "@typescript-eslint/parser": "^8.11.0",
-    "cdktf": "^0.20.11",
+    "cdktf": "^0.21.0",
     "eslint": "^9.13.0",
     "eslint-config-prettier": "9.1.0",
     "eslint-plugin-import": "^2.31.0",
@@ -55,6 +58,5 @@
   },
   "bugs": {
     "url": "https://github.com/boostercloud/rocket-webhook/issues"
-  },
-  "gitHead": "1641d1ebb7bc97c28334a9ebd08bb5767fe0ccc8"
+  }
 }
