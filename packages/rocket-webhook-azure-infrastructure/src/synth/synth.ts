@@ -2,7 +2,7 @@ import { getRoute, WebhookParams, WebhookParamsEvent } from '@boostercloud/rocke
 import { BoosterConfig, UUID } from '@boostercloud/framework-types'
 import { ApplicationSynthStack, RocketUtils } from '@boostercloud/framework-provider-azure-infrastructure'
 import { TerraformFunctionApp } from './terraform-function-app'
-import { ApplicationGatewayBackendAddressPool } from '@cdktf/provider-azurerm/lib/application-gateway'
+import { ApplicationGatewayBackendAddressPool } from '@cdktn/provider-azurerm/lib/application-gateway'
 
 const backendAddressPoolId = 'rocketWebHookBackendAddressPool'
 
