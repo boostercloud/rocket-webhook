@@ -23,15 +23,15 @@
     "url": "git+https://github.com/boostercloud/rocket-webhook.git"
   },
   "peerDependencies": {
-    "@boostercloud/framework-core": ">=4.0.0",
-    "@boostercloud/framework-types": ">=4.0.0"
+    "@boostercloud/framework-core": ">=4.0.3",
+    "@boostercloud/framework-types": ">=4.0.3"
   },
   "dependencies": {
     "@boostercloud/rocket-webhook-types": "^2.0.0",
     "express": "4.22.1"
   },
   "devDependencies": {
-    "@boostercloud/framework-provider-local-infrastructure": "^4.0.0",
+    "@boostercloud/framework-provider-local-infrastructure": "^4.0.3",
     "@types/node": "^22.0.0",
     "@typescript-eslint/eslint-plugin": "^8.11.0",
     "@typescript-eslint/parser": "^8.11.0",

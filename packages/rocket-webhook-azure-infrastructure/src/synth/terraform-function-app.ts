@@ -1,7 +1,7 @@
 import { BoosterConfig, rocketFunctionIDEnvVar } from '@boostercloud/framework-types'
 import { ApplicationSynthStack, RocketUtils } from '@boostercloud/framework-provider-azure-infrastructure'
 import { functionID } from '@boostercloud/rocket-webhook-types'
-import { windowsFunctionApp } from '@cdktf/provider-azurerm'
+import { windowsFunctionApp } from '@cdktn/provider-azurerm'
 import { getFunctionAppName } from '../helper'
 
 export class TerraformFunctionApp {
