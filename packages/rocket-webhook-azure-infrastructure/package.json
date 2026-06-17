@@ -25,7 +25,9 @@
   "peerDependencies": {
     "@boostercloud/framework-core": ">=4.0.3",
     "@boostercloud/framework-types": ">=4.0.3",
-    "@cdktn/provider-azurerm": ">=16.0.0"
+    "@cdktn/provider-azurerm": ">=16.0.0",
+    "cdktn": "^0.23.0",
+    "constructs": "^10.6.0"
   },
   "dependencies": {
     "@boostercloud/rocket-webhook-types": "^2.0.0"
