@@ -39,23 +39,6 @@
     "@boostercloud/framework-types": ">=4.0.3"
   },
   "overrides": {
-    "@cdktf/hcl2cdk": {
-      "glob": "10.5.0"
-    },
-    "@cdktf/provider-generator": {
-      "glob": "10.5.0"
-    },
-    "@cdktf/cli-core": {
-      "minimatch": "5.1.9",
-      "glob": "10.5.0"
-    },
-    "cdktf-cli": {
-      "minimatch@^5.0.0": "5.1.9"
-    },
-    "cdktf": {
-      "minimatch": "5.1.9",
-      "glob": "10.5.0"
-    },
     "lerna": {
       "tar": "7.5.10"
     },
