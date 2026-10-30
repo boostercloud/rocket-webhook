@@ -31,7 +31,7 @@
     "express": "4.22.1"
   },
   "devDependencies": {
-    "@boostercloud/framework-provider-local-infrastructure": "^4.0.4",
+    "@boostercloud/framework-provider-local-infrastructure": "^4.1.0",
     "@types/node": "^22.0.0",
     "@typescript-eslint/eslint-plugin": "^8.11.0",
     "@typescript-eslint/parser": "^8.11.0",
