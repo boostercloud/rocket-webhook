@@ -23,25 +23,25 @@
     "url": "git+https://github.com/boostercloud/rocket-webhook.git"
   },
   "peerDependencies": {
-    "@boostercloud/framework-core": ">=4.0.3",
-    "@boostercloud/framework-types": ">=4.0.3",
-    "@cdktn/provider-azurerm": ">=16.0.0",
-    "cdktn": "^0.23.0",
+    "@boostercloud/framework-core": ">=4.1.0",
+    "@boostercloud/framework-types": ">=4.1.0",
+    "@cdktn/provider-azurerm": "^19.0.0",
+    "cdktn": "^0.25.0",
     "constructs": "^10.6.0"
   },
   "dependencies": {
     "@boostercloud/rocket-webhook-types": "^2.0.2"
   },
   "devDependencies": {
-    "@boostercloud/framework-core": "^4.0.4",
-    "@boostercloud/framework-provider-azure-infrastructure": "^4.0.4",
-    "@boostercloud/framework-types": "^4.0.4",
-    "@boostercloud/metadata-booster": "^4.0.4",
-    "@cdktn/provider-azurerm": "16.4.0",
+    "@boostercloud/framework-core": "^4.1.0",
+    "@boostercloud/framework-provider-azure-infrastructure": "^4.1.0",
+    "@boostercloud/framework-types": "^4.1.0",
+    "@boostercloud/metadata-booster": "^4.1.0",
+    "@cdktn/provider-azurerm": "19.0.0",
     "@types/node": "^22.0.0",
     "@typescript-eslint/eslint-plugin": "^8.11.0",
     "@typescript-eslint/parser": "^8.11.0",
-    "cdktn": "0.23.3",
+    "cdktn": "0.25.0",
     "eslint": "^9.13.0",
     "eslint-config-prettier": "9.1.0",
     "eslint-plugin-import": "^2.31.0",

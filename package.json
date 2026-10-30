@@ -60,8 +60,6 @@
     "@effect/cli": "0.77.2",
     "@azure/msal-node": "7.1.2",
     "toml": "5.0.1",
-    "cdktn-cli": "0.25.0",
-    "@cdktn/hcl2cdk": "0.25.0",
     "body-parser": "1.20.9",
     "proxy-addr": "2.0.8",
     "browserslist": "4.29.5",
